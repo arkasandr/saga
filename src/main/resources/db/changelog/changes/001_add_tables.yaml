@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username: postgres
+
+  - changeSet:
+      id: 1
+      author: Alex Arkashev
+      changes:
+        - createTable:
+            tableName: employee
+            columns:
+              - column:
+                  name: employee_id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(255)
+              - column:
+                  name: firstname
+                  type: varchar(255)
+              - column:
+                  name: middlename
+                  type: varchar(255)
+              - column:
+                  name: reportnumber
+                  type: int
+              - column:
+                  name: company
+                  type: varchar(255)
+              - column:
+                  name: department
+                  type: varchar(255)
+              - column:
+                  name: position
+                  type: varchar(255)
+        - createTable:
+            tableName: salarycard
+            columns:
+              - column:
+                  name: salarycard_id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: year
+                  type: int
+              - column:
+                  name: month
+                  type: int
+              - column:
+                  name: advance
+                  type: double(53)
+              - column:
+                  name: salary
+                  type: double(53)
+              - column:
+                  name: employee_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    references: employee(employee_id)
+                    foreignKeyName: fk_employee_to_salarycard

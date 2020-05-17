@@ -19,6 +19,17 @@ import java.util.List;
 @Table(name = "EMPLOYEE")
 public class Employee {
 
+    public Employee(String surname, String firstName, String middleName, int reportNumber, String company, String department, String position, List<SalaryCard> salaryCards) {
+        this.surname = surname;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.reportNumber = reportNumber;
+        this.company = company;
+        this.department = department;
+        this.position = position;
+        this.salaryCards = salaryCards;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYEE_ID")
@@ -40,9 +51,6 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<SalaryCard> salaryCards;
-
-
-
 
 
 }

@@ -3,7 +3,9 @@ package ru.arkaleks.salarygallery.config;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.arkaleks.salarygallery.service.PDFReadingClient;
+import ru.arkaleks.salarygallery.model.Employee;
+import ru.arkaleks.salarygallery.repository.EmployeeRepository;
+import ru.arkaleks.salarygallery.service.PdfParseClient;
 
 /**
  * @author Alex Arkashev (arkasandr@gmail.com)
@@ -14,9 +16,10 @@ import ru.arkaleks.salarygallery.service.PDFReadingClient;
 public class DataBaseInitConfig {
 
     @Bean
-    CommandLineRunner initDatabase(PDFReadingClient client) {
+    CommandLineRunner initDatabase(EmployeeRepository repository, PdfParseClient client) {
         return args -> {
-            client.getDataFromPDF();
+            Employee employee = client.getDataFromPDF();
+            repository.save(employee);
 
         };
     }

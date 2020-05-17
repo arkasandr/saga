@@ -16,18 +16,17 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: surname
                   type: varchar(255)
               - column:
-                  name: firstname
+                  name: first_name
                   type: varchar(255)
               - column:
-                  name: middlename
+                  name: middle_name
                   type: varchar(255)
               - column:
-                  name: reportnumber
+                  name: report_number
                   type: int
               - column:
                   name: company
@@ -47,13 +46,12 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: year
                   type: int
               - column:
                   name: month
-                  type: int
+                  type: varchar(255)
               - column:
                   name: advance
                   type: double(53)
@@ -64,6 +62,5 @@ databaseChangeLog:
                   name: employee_id
                   type: int
                   constraints:
-                    nullable: false
                     references: employee(employee_id)
                     foreignKeyName: fk_employee_to_salarycard

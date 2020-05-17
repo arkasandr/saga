@@ -13,6 +13,13 @@ import javax.persistence.*;
 @Table(name = "SALARYCARD")
 public class SalaryCard {
 
+    public SalaryCard(int year, String month, double advance, double salary) {
+        this.year = year;
+        this.month = month;
+        this.advance = advance;
+        this.salary = salary;
+    }
+
     @Id
     @Column(name = "SALARYCARD_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +27,7 @@ public class SalaryCard {
 
     private int year;
 
-    private int month;
+    private String month;
 
     private double advance;
 

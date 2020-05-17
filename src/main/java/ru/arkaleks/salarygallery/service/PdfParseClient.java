@@ -39,10 +39,10 @@ public class PdfParseClient {
             PDFTextStripper pdfStripper = new PDFTextStripper();
             String text = pdfStripper.getText(document);
             if (!text.isEmpty()) {
+                int id = Integer.parseInt(getLinesFromText(text).get(6));
                 String surname = StringUtils.substringBefore(getLinesFromText(text).get(3), " ");
                 String firstName = StringUtils.substringBetween(getLinesFromText(text).get(3), " ", " ");
                 String middleName = StringUtils.substringAfterLast(getLinesFromText(text).get(3), " ");
-                int reportNumber = Integer.parseInt(getLinesFromText(text).get(6));
                 String company = StringUtils.substringAfter(getLinesFromText(text).get(0), "Организация ");
                 String department = StringUtils.substringAfter(getLinesFromText(text).get(2), company + " ");
                 String position = getLinesFromText(text).get(4);
@@ -60,10 +60,17 @@ public class PdfParseClient {
                         (getLinesFromText(text).get(5), "выплате: ")).doubleValue()) * 1000 +
                         DecimalFormat.getNumberInstance().parse(StringUtils.substringAfterLast
                                 (getLinesFromText(text).get(5), " ")).doubleValue();
-                SalaryCard salaryCard = new SalaryCard(year, month, advance, salary);
+                SalaryCard salaryCard = new SalaryCard(id, year, month, advance, salary);
+                result.setId(id);
+                result.setSurname(surname);
+                result.setFirstName(firstName);
+                result.setMiddleName(middleName);
+                result.setCompany(company);
+                result.setDepartment(department);
+                result.setPosition(position);
+                salaryCard.setEmployee(result);
                 salaryCards.add(salaryCard);
-                result = new Employee(surname, firstName, middleName,
-                        reportNumber, company, department, position, salaryCards);
+                result.setSalaryCards(salaryCards);
                 document.close();
             } else {
                 System.out.println("Расчетный лист пустой!");
@@ -112,7 +119,7 @@ public class PdfParseClient {
                 if (lineNumber == 18) {
                     result.add(line);
                 }
-                if (lineNumber == 46) {
+                if (line.startsWith("Аванс")) {
                     result.add(line);
                 }
                 line = lineNumberReader.readLine();

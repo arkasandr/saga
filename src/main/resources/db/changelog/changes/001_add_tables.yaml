@@ -26,9 +26,6 @@ databaseChangeLog:
                   name: middle_name
                   type: varchar(255)
               - column:
-                  name: report_number
-                  type: int
-              - column:
                   name: company
                   type: varchar(255)
               - column:

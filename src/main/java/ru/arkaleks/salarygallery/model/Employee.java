@@ -19,19 +19,17 @@ import java.util.List;
 @Table(name = "EMPLOYEE")
 public class Employee {
 
-    public Employee(String surname, String firstName, String middleName, int reportNumber, String company, String department, String position, List<SalaryCard> salaryCards) {
+    public Employee(int id, String surname, String firstName, String middleName, String company, String department, String position) {
+        this.id = id;
         this.surname = surname;
         this.firstName = firstName;
         this.middleName = middleName;
-        this.reportNumber = reportNumber;
         this.company = company;
         this.department = department;
         this.position = position;
-        this.salaryCards = salaryCards;
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYEE_ID")
     private int id;
 
@@ -40,8 +38,6 @@ public class Employee {
     private String firstName;
 
     private String middleName;
-
-    private int reportNumber;
 
     private String company;
 

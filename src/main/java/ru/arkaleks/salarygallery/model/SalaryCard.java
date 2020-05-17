@@ -10,10 +10,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "SALARYCARD")
+@Table(name = "SALARYCARD",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"year", "month"})})
 public class SalaryCard {
 
-    public SalaryCard(int year, String month, double advance, double salary) {
+    public SalaryCard(int id, int year, String month, double advance, double salary) {
+        this.id = id;
         this.year = year;
         this.month = month;
         this.advance = advance;
@@ -25,8 +27,10 @@ public class SalaryCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "YEAR")
     private int year;
 
+    @Column(name = "MONTH")
     private String month;
 
     private double advance;

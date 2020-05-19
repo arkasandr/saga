@@ -7,6 +7,7 @@ import ru.arkaleks.salarygallery.model.Employee;
 import ru.arkaleks.salarygallery.repository.EmployeeRepository;
 import ru.arkaleks.salarygallery.service.PdfParseClient;
 
+
 /**
  * @author Alex Arkashev (arkasandr@gmail.com)
  * @version $Id$

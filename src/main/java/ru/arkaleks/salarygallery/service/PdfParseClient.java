@@ -1,5 +1,6 @@
 package ru.arkaleks.salarygallery.service;
 
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -8,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.arkaleks.salarygallery.model.Employee;
 import ru.arkaleks.salarygallery.model.SalaryCard;
 
+
 import java.io.*;
+
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -32,34 +35,34 @@ public class PdfParseClient {
      * @throws IOException, ParseException
      */
 
-    public Employee getDataFromPDF() throws ParseException {
+    public Employee getDataFromPDF() throws IOException, ParseException {
         Employee result = new Employee();
         try {
-            PDDocument document = PDDocument.load(new File("C:/salary.pdf"));
+            PDDocument document = PDDocument.load(new File("C:/projects/salarycards/SalaryCard_05_rom.pdf"));
             PDFTextStripper pdfStripper = new PDFTextStripper();
             String text = pdfStripper.getText(document);
             if (!text.isEmpty()) {
-                int id = Integer.parseInt(getLinesFromText(text).get(6));
-                String surname = StringUtils.substringBefore(getLinesFromText(text).get(3), " ");
-                String firstName = StringUtils.substringBetween(getLinesFromText(text).get(3), " ", " ");
-                String middleName = StringUtils.substringAfterLast(getLinesFromText(text).get(3), " ");
-                String company = StringUtils.substringAfter(getLinesFromText(text).get(0), "Организация ");
-                String department = StringUtils.substringAfter(getLinesFromText(text).get(2), company + " ");
-                String position = getLinesFromText(text).get(4);
+                int id = Integer.parseInt(getLinesFromText(text).get(6).trim());
+                String surname = StringUtils.substringBefore(getLinesFromText(text).get(3), " ").trim();
+                String firstName = StringUtils.substringBetween(getLinesFromText(text).get(3), " ", " ").trim();
+                String middleName = StringUtils.substringAfterLast(getLinesFromText(text).get(3), firstName + " ").trim();
+                String company = StringUtils.substringAfter(getLinesFromText(text).get(0), "Организация ").trim();
+                String department = StringUtils.substringAfter(getLinesFromText(text).get(2), company + " ").trim();
+                String position = getLinesFromText(text).get(4).trim();
                 List<SalaryCard> salaryCards = new ArrayList<>();
                 int year = Integer.parseInt(StringUtils.substringAfterLast
-                        (getLinesFromText(text).get(1), " "));
+                        (getLinesFromText(text).get(1).trim(), " "));
                 String month = StringUtils.substringBetween
-                        (getLinesFromText(text).get(1), "начисления ", " " + year);
+                        (getLinesFromText(text).get(1).trim(), "начисления ", " " + year);
                 Double advance = (DecimalFormat.getNumberInstance().parse(StringUtils.substringBetween
-                        (StringUtils.substringAfter(getLinesFromText(text).get(7), "банк) "), " ", " "))
+                        (StringUtils.substringAfter(getLinesFromText(text).get(7).trim(), "банк) "), " ", " "))
                         .doubleValue()) * 1000 +
                         DecimalFormat.getNumberInstance().parse(StringUtils.substringAfterLast
-                                (getLinesFromText(text).get(7), " ")).doubleValue();
+                                (getLinesFromText(text).get(7).trim(), " ")).doubleValue();
                 Double salary = (DecimalFormat.getNumberInstance().parse(StringUtils.substringAfter
-                        (getLinesFromText(text).get(5), "выплате: ")).doubleValue()) * 1000 +
+                        (getLinesFromText(text).get(5).trim(), "выплате: ")).doubleValue()) * 1000 +
                         DecimalFormat.getNumberInstance().parse(StringUtils.substringAfterLast
-                                (getLinesFromText(text).get(5), " ")).doubleValue();
+                                (getLinesFromText(text).get(5).trim(), " ")).doubleValue();
                 SalaryCard salaryCard = new SalaryCard(id, year, month, advance, salary);
                 result.setId(id);
                 result.setSurname(surname);
@@ -119,7 +122,7 @@ public class PdfParseClient {
                 if (lineNumber == 18) {
                     result.add(line);
                 }
-                if (line.startsWith("Аванс")) {
+                if (line.contains("Аванс")) {
                     result.add(line);
                 }
                 line = lineNumberReader.readLine();

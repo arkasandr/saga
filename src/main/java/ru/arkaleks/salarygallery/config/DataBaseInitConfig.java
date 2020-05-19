@@ -20,8 +20,11 @@ public class DataBaseInitConfig {
     CommandLineRunner initDatabase(EmployeeRepository repository, PdfParseClient client) {
         return args -> {
             Employee employee = client.getDataFromPDF();
-            repository.save(employee);
-
+            if (employee.getSurname() != null) {
+                repository.save(employee);
+            } else {
+                throw new IllegalArgumentException("Данные не сохранены!");
+            }
         };
     }
 }

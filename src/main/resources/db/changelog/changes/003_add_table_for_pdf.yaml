@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username: postgres
+
+  - changeSet:
+      id: 3
+      author: Alex Arkashev
+      changes:
+        - createTable:
+            tableName: documents
+            columns:
+              - column:
+                  name: document_id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: filename
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: content
+                  type: blob
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                    defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: salarycard_id
+                  type: int
+                  constraints:
+                    references: salarycard(salarycard_id)
+                    foreignKeyName: fk_salarycard_to_document

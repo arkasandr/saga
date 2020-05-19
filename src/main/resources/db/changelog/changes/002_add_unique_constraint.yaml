@@ -8,7 +8,7 @@ databaseChangeLog:
       author: Alex Arkashev
       changes:
         -  addUniqueConstraint:
-              columnNames: year, month
+              columnNames: year, month, employee_id
               constraintName: salarycard_constraint
               deferrable: true
               disabled: true

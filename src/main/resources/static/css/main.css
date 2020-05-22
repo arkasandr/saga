@@ -1,0 +1,103 @@
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+ul, li {
+    display: block;
+    padding: 0;
+    margin: 0;
+
+}
+
+h1 {
+    font-weight: 900;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+h3 {
+    font-weight: 300;
+}
+
+.header {
+    background: #404251;
+    color: #FFFFFF;
+    padding: 40px 0 10px 0;
+}
+
+.menu {
+
+}
+
+.menu__item {
+    margin: 15px 35px;
+
+}
+
+
+.menu__item a {
+    font-size: 12px;
+    font-weight: 200;
+    color: #FFFFFF;
+
+}
+
+.menu__item i {
+    font-family: "FontAwesome";
+    font-size: 14px;
+    color: #e39941;
+    position: relative;
+}
+
+
+.offer {
+}
+
+.offer__title {
+    font-size: 40px;
+    color: #FFFFFF;
+    margin-bottom: 40px;
+    margin-top: 110px;
+}
+
+.offer__text {
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-top: 20px;
+    width: 400px;
+}
+
+.diagramma1 {
+    display: block;
+    margin: 20px auto 0;
+    padding-bottom: 5px;
+}
+
+.diagramma2 {
+    display: block;
+    margin: 5px auto 0;
+    padding: 0 0 100px 0;
+}
+
+
+.lkemployee {
+    background: #404251;
+}
+
+.lkemployee__card__load {
+    font-size: 14px;
+    color: #FFFFFF;
+    padding: 40px 0 50px 0;
+}
+
+.lkemployee__card__load__form__input {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 300px;
+    padding: 4px 0 6px 20px;
+}
+
+

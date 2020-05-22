@@ -58,5 +58,4 @@ public class SalaryCard {
     @OneToOne(mappedBy = "salarycard", cascade = CascadeType.ALL)
     private DocumentPdf documentPdf;
 
-
 }

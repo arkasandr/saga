@@ -53,18 +53,49 @@
         <div class="row">
             <div class="col-md-10">
                 <div class="lkemployee__card__load">
-                    <form class="form-horizontal" id="editor-coors-search-form">
-                        <button id="lkemployee-load-salarycard" type="submit" class="btn btn-primary btn-sm">Загрузить файл
+                    <form class="form-horizontal" id="lkemployee-card-load-form">
+                        <button id="lkemployee-card-load-button" type="submit" class="btn btn-primary btn-sm">Загрузить файл
                         </button>
                         <input type="text" placeholder="Имя файла.pdf"
-                               class="lkemployee__card__load__form__input" required id="editor-coors-searching">
-                        <small id="coorsHelpBlock" class="form-text">
+                               class="lkemployee__card__load__form__input" required id="lkemployee-card-loading">
+                        <small id="loadingHelpBlock" class="form-text">
                             Обратите внимание, файл должен быть в формате .PDF
                         </small>
                     </form>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="lkemployee__card__add">
+                    <form class="form-horizontal" id="lkemployee-card-add-form">
+                        <button id="lkemployee-card-add-btn" type="submit" class="btn btn-secondary btn-sm"> Add New Employee
+                        </button>
+                        <input type="text" placeholder="Введите табельный номер" class="lkemployee__card__add__input__id" required
+                               id="lkemployee-card-add-id">
+                        <input type="text" placeholder="Введите фамилию" class="lkemployee__card__add__input__surname" required
+                               id="lkemployee-card-add-surname">
+                        <input type="text" placeholder="Введите имя" class="lkemployee__card__add__input__firstname" required
+                               id="lkemployee-card-add-firstname">
+                        <input type="text" placeholder="Введите отчество" class="lkemployee__card__add__input__middlename" required
+                               id="lkemployee-card-add-middlename">
+                        <input type="text" placeholder="Введите компанию" class="lkemployee__card__add__input__company" required
+                               id="lkemployee-card-add-company">
+                        <input type="text" placeholder="Введите отдел" class="lkemployee__card__add__input__department" required
+                               id="lkemployee-card-add-department">
+                        <input type="text" placeholder="Введите должность" class="lkemployee__card__add__input__position" required
+                               id="lkemployee-card-add-position">
+                    </form>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
     </div>
 </section>
 
@@ -74,6 +105,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/lkemployee.js"></script>
 </body>
 </html>

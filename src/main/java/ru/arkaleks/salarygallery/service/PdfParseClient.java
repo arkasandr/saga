@@ -37,7 +37,7 @@ public class PdfParseClient {
     public Employee getDataFromPDF() throws IOException, ParseException {
         Employee result = new Employee();
         try {
-            File file = new File("C:/projects/salarycards/SalaryCard_01.pdf");
+            File file = new File("C:/projects/salarycards/SalaryCard_05_rom.pdf");
             PDDocument document = PDDocument.load(file);
             PDFTextStripper pdfStripper = new PDFTextStripper();
             String text = pdfStripper.getText(document);

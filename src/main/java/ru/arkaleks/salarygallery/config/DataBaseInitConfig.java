@@ -21,6 +21,7 @@ public class DataBaseInitConfig {
         return args -> {
             Employee employee = client.getDataFromPDF();
             if (employee.getSurname() != null) {
+                System.out.println(employee.getSurname());
                 repository.save(employee);
             } else {
                 throw new IllegalArgumentException("Данные не сохранены!");

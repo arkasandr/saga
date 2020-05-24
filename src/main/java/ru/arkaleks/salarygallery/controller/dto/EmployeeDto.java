@@ -1,5 +1,6 @@
 package ru.arkaleks.salarygallery.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ru.arkaleks.salarygallery.model.SalaryCard;
 
@@ -26,6 +27,6 @@ public class EmployeeDto {
     private String department;
 
     private String position;
-
+    @JsonIgnore
     private List<SalaryCard> salaryCards;
 }

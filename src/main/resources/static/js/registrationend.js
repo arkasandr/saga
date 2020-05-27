@@ -1,7 +1,6 @@
 jQuery(document).ready(function ($) {
 
 
-
     $('#routes-search-form').submit(function (event) {
         enableAllPathButton(false);
         event.preventDefault();
@@ -9,15 +8,15 @@ jQuery(document).ready(function ($) {
     });
 
 
-    $("#lkemployee-card-add-form").submit(function (event) {
+    $("#registrationend-card-add-form").submit(function (event) {
         enableAddNewUserButton(false);
-        var id = $("#lkemployee-card-add-id").val();
-        var surname = $("#lkemployee-card-add-surname").val();
-        var firstname = $("#lkemployee-card-add-firstname").val();
-        var middlename = $("#lkemployee-card-add-middlename").val();
-        var company = $("#lkemployee-card-add-company").val();
-        var department = $("#lkemployee-card-add-department").val();
-        var position = $("#lkemployee-card-add-position").val();
+        var id = $("#registrationend-card-add-id").val();
+        var surname = $("#registrationend-card-add-surname").val();
+        var firstname = $("#registrationend-card-add-firstname").val();
+        var middlename = $("#registrationend-card-add-middlename").val();
+        var company = $("#registrationend-card-add-company").val();
+        var department = $("#registrationend-card-add-department").val();
+        var position = $("#registrationend-card-add-position").val();
         var employeeDto = {
             id: id,
             surname: surname,
@@ -32,61 +31,20 @@ jQuery(document).ready(function ($) {
             addNewUserAjax(resultJson);
             event.preventDefault();
         } else {
-            alert("All fields must be required");
+            alert("Заполните, пожалуйста, все поля!");
             event.preventDefault();
         }
     });
 
 
-    $('#lkemployee-card-loading').change(function(e){
-        var fileName = e.target.files[0].name;
-        alert('The file "' + fileName +  '" has been selected.');
-    });
-
-
-    // $('#lkemployee-card-load-form').submit(function (event) {
-    //     enableLoadFileButton(false);
-    //     event.preventDefault();
-    //     uploadFileByAjax()
-    // });
-    //
-    //
-    // function enableLoadFileButton(flag) {
-    //     $('#lkemployee-card-load-button').prop("disabled", flag);
-    // }
-
-
-
-    // $("lkemployee-card-load-form").submit(function(evt){
-    //     evt.preventDefault();
-    //     var formData = new FormData($(this)[0]);
-    //     $.ajax({
-    //         url: 'fileUpload',
-    //         type: 'POST',
-    //         data: formData,
-    //         async: false,
-    //         cache: false,
-    //         contentType: false,
-    //         enctype: 'multipart/form-data',
-    //         processData: false,
-    //         success: function (response) {
-    //             alert(response);
-    //         }
-    //     });
-    //     return false;
-    // });
-
-    // $('#button').on('click', function() {
-    //     $('#file-input').trigger('click');
-    // });
-
-    $('#button').click(function() {
-        $("#button").on('change', function () {
-            var form = $('#lkemployee-card-load-form')[0];
-            var formData = new FormData(form);
+    $("#file-input-choose2").on("change", (function (e) {
+            var fileInput = document.getElementById("file-input-choose2");
+            var file = fileInput.files[0];
+            formData = new FormData();
+            formData.append("file", file);
             $.ajax({
                 type: "POST",
-                url: "/lkemployee/uploadfile",
+                url: "/registrationend/uploadfile",
                 data: formData,
                 cache: false,
                 timeout: 100000,
@@ -95,120 +53,38 @@ jQuery(document).ready(function ($) {
                 contentType: false,
                 success: function () {
                     console.log("SUCCESS: ", "ok222");
-                    $("#button").prop("disabled", false);
+                    $("#button2").prop("disabled", false);
                 },
                 error: function () {
-                    alert("File was not uploaded!");
-                    $("#button").prop("disabled", false);
+                    alert("Не удалось загрузить файл!");
+                    $("#button2").prop("disabled", false);
                 }
             });
-        }).click();
-    });
-
-
-
-        // $("#lkemployee-card-load-button").submit(function (event) {
-        //     event.preventDefault();
-        //     var form = $('#lkemployee-card-load-form')[0];
-        //     var formData = new FormData(form);
-        //     $("#lkemployee-card-load-button").prop("disabled", true);
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/lkemployee/uploadfile",
-        //         data: formData,
-        //         cache: false,
-        //         timeout: 100000,
-        //         enctype: 'multipart/form-data',
-        //         processData: false,
-        //         contentType: false,
-        //         success: function () {
-        //             console.log("SUCCESS: ", "ok222");
-        //             $("#lkemployee-card-load-button").prop("disabled", false);
-        //         },
-        //         error: function () {
-        //             alert("File was not uploaded!");
-        //             $("#lkemployee-card-load-button").prop("disabled", false);
-        //         }
-        //     });
-        // });
-
-            // } else {
-            //     alert("Выберите, пожалуйста, pdf-файл");
-            //     event.preventDefault();
-            // }
-
+        })
+    );
 });
-
-// $(document).ready(function () {
-//
-//     $("#btnSubmit").click(function (event) {
-//
-//         //stop submit the form, we will post it manually.
-//         event.preventDefault();
-
-        // // Get form
-        // var form = $('#fileUploadForm')[0];
-        //
-        // // Create an FormData object
-        // var data = new FormData(form);
-
-        // If you want to add an extra field for the FormData
-//         data.append("CustomField", "This is some extra data, testing");
-//
-//         // disabled the submit button
-//         $("#btnSubmit").prop("disabled", true);
-//
-//         $.ajax({
-//             type: "POST",
-//             enctype: 'multipart/form-data',
-//             url: "/api/upload/multi",
-//             data: data,
-//             processData: false,
-//             contentType: false,
-//             cache: false,
-//             timeout: 600000,
-//             success: function (data) {
-//
-//                 $("#result").text(data);
-//                 console.log("SUCCESS : ", data);
-//                 $("#btnSubmit").prop("disabled", false);
-//
-//             },
-//             error: function (e) {
-//
-//                 $("#result").text(e.responseText);
-//                 console.log("ERROR : ", e);
-//                 $("#btnSubmit").prop("disabled", false);
-//
-//             }
-//         });
-//
-//     });
-//
-// });
-
-
 
 
 
 function enableAddNewUserButton(flag) {
-    $('#lkemployee-card-add-btn').prop("disabled", flag);
+    $('#registrationend-card-add-btn').prop("disabled", flag);
 }
+
 
 function addNewUserAjax(json) {
     $.ajax({
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         type: "POST",
-        url: "http://localhost:9090/lkemployee/addnew",
+        url: "http://localhost:9090/registrationend/addnew",
         data: json,
         timeout: 100000,
         success: function () {
             console.log("SUCCESS: ", "ok222");
-            window.location = "http://localhost:9090/lkemployee.html";
+            window.location = "http://localhost:9090/registrationend.html";
         },
         error: function () {
-            $('#lkemployee-card-add-btn').parent().append('<p>Username has been already exists!</p>');
+            $('#registrationend-card-add-btn').parent().append('<p>Сотрудник с такими данными уже существует!</p>');
             console.log("ERROR: ", e);
             event.preventDefault();
 
@@ -219,6 +95,8 @@ function addNewUserAjax(json) {
         }
     });
 }
+
+
 
 
 // $(document).ready(function () {
@@ -371,6 +249,7 @@ function addNewUserAjax(json) {
 function enableAllPathButton(flag) {
     $('#getALlRoutes').prop("disabled", flag);
 }
+
 //
 // function enableOnePathButton(flag) {
 //     $('#getOneRoute').prop("disabled", flag);
@@ -395,10 +274,11 @@ function enableAllPathButton(flag) {
 function displayToTableAll(data) {
     $('tr:has(td)').remove();
     $.each(data, function (i, item) {
-        $('<tr>').html("<td>" + data[i].id + "</td><td>" + data[i].surname  + "</td>")
+        $('<tr>').html("<td>" + data[i].id + "</td><td>" + data[i].surname + "</td>")
             .appendTo('#routes-all');
     });
 }
+
 //
 // function displayToTableOne(data) {
 //     $('#route-one').find("tr:gt(0)").remove();
@@ -444,7 +324,7 @@ function displayToTableAll(data) {
 function ajaxGetTwo() {
     $.ajax({
         type: "GET",
-        url: "/lkemployee/all",
+        url: "/registrationend/all",
         timeout: 100000,
         success: function (data) {
             console.log("SUCCESS: ", data);
@@ -459,6 +339,7 @@ function ajaxGetTwo() {
         }
     });
 }
+
 //
 // function ajaxGetPathById() {
 //     $.ajax({

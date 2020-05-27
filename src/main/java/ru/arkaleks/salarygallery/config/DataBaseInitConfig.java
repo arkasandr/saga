@@ -16,16 +16,16 @@ import ru.arkaleks.salarygallery.service.PdfParseClient;
 @Configuration
 public class DataBaseInitConfig {
 
-    @Bean
-    CommandLineRunner initDatabase(EmployeeRepository repository, PdfParseClient client) {
-        return args -> {
-            Employee employee = client.getDataFromPDF();
-            if (employee.getSurname() != null) {
-                System.out.println(employee.getSurname());
-                repository.save(employee);
-            } else {
-                throw new IllegalArgumentException("Данные не сохранены!");
-            }
-        };
-    }
+//    @Bean
+//    CommandLineRunner initDatabase(EmployeeRepository repository, PdfParseClient client) {
+//        return args -> {
+//            Employee employee = client.getDataFromPDF();
+//            if (employee.getSurname() != null) {
+//                System.out.println(employee.getSurname());
+//                repository.save(employee);
+//            } else {
+//                throw new IllegalArgumentException("Данные не сохранены!");
+//            }
+//        };
+//    }
 }

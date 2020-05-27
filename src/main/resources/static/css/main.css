@@ -82,17 +82,59 @@ h3 {
 }
 
 
-.lkemployee {
+.registrationstart {
     background: #404251;
 }
 
-.lkemployee__card__load {
-    font-size: 14px;
-    color: #FFFFFF;
-    padding: 40px 0 50px 0;
+.registrationend {
+    background: #404251;
 }
 
-.lkemployee__card__load__form__input {
+.registration__text {
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-top: 20px;
+    width: 400px;
+}
+
+.registrationend__text__load {
+    font-size: 14px;
+    color: #FFFFFF;
+    width: 400px;
+    padding: 40px 0 0 0;
+}
+
+.registrationend__card__load {
+    font-size: 14px;
+    color: #FFFFFF;
+    padding: 0 0 550px 0;
+
+}
+
+
+.registrationend__card__load div {
+    width: 150px;
+    height: 30px;
+    font-size: 14px;
+    color: #FFFFFF;
+    background: #868e96;
+    border-radius: 4px;
+    text-align: center;
+    vertical-align: auto;
+    font-family: 'Raleway', sans-serif;
+    line-height: 32px;
+    display: inline-block;
+
+}
+
+.registrationend__card__load div:hover {
+    background: #5a5d61;
+    cursor: pointer;
+
+
+}
+
+.lregistrationend__card__load__form__input {
     background: #fff;
     font-size: 14px;
     border-radius: 5px;
@@ -101,3 +143,148 @@ h3 {
 }
 
 
+.registrationend__card__add {
+    font-size: 14px;
+    color: #000;
+}
+
+
+.registrationend__card__add__id {
+    font-size: 14px;
+    color: #000;
+    padding: 10px 0 10px 0;
+}
+
+.registrationend__card__add__input__id {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationend__card__add__input__surname {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationend__card__add__input__firstname {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationend__card__add__input__middlename {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationend__card__add__input__company {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationend__card__add__input__department {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationend__card__add__input__position {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationstart__add__login__input {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationstart__add__password__input {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationstart__add__email__input {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 190px;
+    padding: 4px 0 4px 5px;
+}
+
+.registrationstart__add__login {
+     font-size: 14px;
+     color: #000;
+     padding: 10px 0 10px 0;
+ }
+
+.registrationstart__add__password {
+    font-size: 14px;
+    color: #000;
+    padding: 10px 0 10px 0;
+}
+
+.registrationstart__add__email {
+    font-size: 14px;
+    color: #000;
+    padding: 10px 0 10px 0;
+}
+
+.registrationstart__next {
+    font-size: 14px;
+    color: #000;
+    padding: 50px 20px 700px 0;
+}
+
+
+.login {
+    background: #404251;
+}
+
+.login__user {
+    font-size: 18px;
+    color: #000;
+    padding-bottom: 200px;
+}
+
+.error {
+    background: #669966;
+}
+
+.error__main {
+    background: #669966;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 50px;
+}
+
+.error__text {
+    background: #669966;
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 300px;
+}

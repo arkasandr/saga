@@ -45,19 +45,16 @@ public class SalaryCardService {
      * @throws
      */
 
-    public ResponseEntity<Object> uploadFile(MultipartFile file) throws IOException {
-        String uploadDir = "C:/projects/salarygallery/src/main/resources/pdf";
-//        if(!file.getOriginalFilename().isEmpty()) {
-//            BufferedOutputStream outputStream = new BufferedOutputStream(
-//                    new FileOutputStream(
-//                            new File(uploadDir, file.getOriginalFilename())));
-//            outputStream.write(file.getBytes());
-//            outputStream.flush();
-//            outputStream.close();
-//        }
-        Path path = Paths.get(uploadDir, file.getOriginalFilename());
-        Files.write(path, file.getBytes());
-        return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
+    public void uploadFile(MultipartFile file) throws IOException {
+        String uploadDir = "C:/Projects/saga/src/main/resources/pdf";
+       if(!file.getOriginalFilename().isEmpty()) {
+            BufferedOutputStream outputStream = new BufferedOutputStream(
+                    new FileOutputStream(
+                            new File(uploadDir, file.getOriginalFilename())));
+            outputStream.write(file.getBytes());
+            outputStream.flush();
+            outputStream.close();
+        }
     }
 
 

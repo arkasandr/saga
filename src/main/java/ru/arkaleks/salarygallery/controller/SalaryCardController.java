@@ -26,41 +26,17 @@ import java.util.List;
 @Transactional
 public class SalaryCardController {
 
-private final SalaryCardService salaryCardService;
+    private final SalaryCardService salaryCardService;
 
-    /**
-     * Метод загружает файл
-     *
-     * @param
-     * @return
-     * @throws
-     */
-    @ResponseBody
-    @PostMapping("/lkemployee/uploadfile")
-    public ResponseEntity<Object> fileUpload(@RequestParam("file") MultipartFile file)
-            throws IOException {
-
-        // Save file on system
-        if (!file.getOriginalFilename().isEmpty()) {
-            BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream(
-                            new File("C:/projects/salarygallery/src/main/resources/pdf", file.getOriginalFilename())));
-            outputStream.write(file.getBytes());
-            outputStream.flush();
-            outputStream.close();
-        }else{
-            return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
+    @ResponseStatus(value = HttpStatus.OK)
+    @PostMapping("/registrationend/uploadfile")
+    void uploadFile(@RequestParam("file") MultipartFile file) {
+        try {
+            salaryCardService.uploadFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        return new ResponseEntity<>("File Uploaded Successfully.",HttpStatus.OK);
     }
-//    void uploadFile(MultipartFile file) {
-//        try {
-//            salaryCardService.uploadFile(file);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     /**
      * Метод находит всех пользователей User
@@ -69,7 +45,7 @@ private final SalaryCardService salaryCardService;
      * @return List<User>
      * @throws
      */
-    @GetMapping("/lkemployee/all")
+    @GetMapping("/registrationend/all")
     public List<EmployeeDto> getAllUsers() {
         return salaryCardService.getAllEmployees();
     }
@@ -83,11 +59,9 @@ private final SalaryCardService salaryCardService;
      * @throws
      */
     @ResponseBody
-    @PostMapping("/lkemployee/addnew")
+    @PostMapping("/registrationend/addnew")
     EmployeeDto addNewUser(@RequestBody Employee newEmployee) {
-       return salaryCardService.saveNewEmployee(newEmployee);
-
+        return salaryCardService.saveNewEmployee(newEmployee);
     }
-
 
 }

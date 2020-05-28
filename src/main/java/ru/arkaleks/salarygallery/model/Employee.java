@@ -52,6 +52,15 @@ public class Employee {
     @NonNull
     private String position;
 
+    @NonNull
+    private String username;
+
+    @NonNull
+    private String password;
+
+    @NonNull
+    private String email;
+
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<PaySlip> paySlips;
 

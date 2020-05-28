@@ -27,6 +27,13 @@ public class EmployeeDto {
     private String department;
 
     private String position;
+
+    private String username;
+
+    private String password;
+
+    private String email;
+
     @JsonIgnore
     private List<PaySlip> paySlips;
 }

@@ -35,6 +35,6 @@ public class DocumentPdf {
     private Date created;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "SALARYCARD_ID")
-    private SalaryCard salarycard;
+    @JoinColumn(name = "PAYSLIP_ID")
+    private PaySlip paySlip;
 }

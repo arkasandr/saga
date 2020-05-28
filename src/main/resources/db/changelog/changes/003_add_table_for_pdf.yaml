@@ -33,8 +33,8 @@ databaseChangeLog:
                     nullable: false
                     defaultValueComputed: CURRENT_TIMESTAMP
               - column:
-                  name: salarycard_id
+                  name: payslip_id
                   type: int
                   constraints:
-                    references: salarycard(salarycard_id)
-                    foreignKeyName: fk_salarycard_to_document
+                    references: payslip(payslip_id)
+                    foreignKeyName: fk_payslip_to_document

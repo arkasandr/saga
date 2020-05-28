@@ -11,11 +11,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "SALARYCARD",
+@Table(name = "PAYSLIP",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"year", "month", "employee_id"})})
-public class SalaryCard {
+public class PaySlip {
 
-    public SalaryCard(int id, int year, String month, double advance, double salary) {
+    public PaySlip(int id, int year, String month, double advance, double salary) {
         this.id = id;
         this.year = year;
         this.month = month;
@@ -23,7 +23,7 @@ public class SalaryCard {
         this.salary = salary;
     }
 
-    public SalaryCard(int id, int year, String month, double advance, double salary, DocumentPdf documentPdf) {
+    public PaySlip(int id, int year, String month, double advance, double salary, DocumentPdf documentPdf) {
         this.id = id;
         this.year = year;
         this.month = month;
@@ -33,7 +33,7 @@ public class SalaryCard {
     }
 
     @Id
-    @Column(name = "SALARYCARD_ID")
+    @Column(name = "PAYSLIP_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -55,7 +55,7 @@ public class SalaryCard {
     @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
 
-    @OneToOne(mappedBy = "salarycard", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "paySlip", cascade = CascadeType.ALL)
     private DocumentPdf documentPdf;
 
 }

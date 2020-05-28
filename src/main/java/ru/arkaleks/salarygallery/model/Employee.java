@@ -53,6 +53,6 @@ public class Employee {
     private String position;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<SalaryCard> salaryCards;
+    private List<PaySlip> paySlips;
 
 }

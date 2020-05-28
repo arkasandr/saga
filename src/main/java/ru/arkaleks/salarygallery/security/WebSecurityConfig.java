@@ -2,34 +2,13 @@ package ru.arkaleks.salarygallery.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.RememberMeAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.rememberme.*;
 
-import ru.arkaleks.salarygallery.controller.impl.SalaryCardService;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
-import java.io.IOException;
-
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+import ru.arkaleks.salarygallery.controller.impl.PaySlipService;
 
 /**
  * @author Alex Arkashev (arkasandr@gmail.com)
@@ -44,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String KEY = "posc";
 
     @Autowired
-    SalaryCardService userService;
+    PaySlipService paySlipService;
 
 //    @Autowired
 //    private AjaxAuthenticationProvider ajaxProvider;
@@ -119,7 +98,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Bean
 //    public AbstractRememberMeServices rememberMeServices() {
 //        TokenBasedRememberMeServices rememberMeServices =
-//                new TokenBasedRememberMeServices(KEY, userService);
+//                new TokenBasedRememberMeServices(KEY, paySlipService);
 //        rememberMeServices.setAlwaysRemember(true);
 //        rememberMeServices.setCookieName("remember-me-posc");
 //        rememberMeServices.setTokenValiditySeconds(1209600);

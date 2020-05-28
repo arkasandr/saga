@@ -2,17 +2,13 @@ package ru.arkaleks.salarygallery.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
-import ru.arkaleks.salarygallery.controller.impl.SalaryCardService;
+import ru.arkaleks.salarygallery.controller.impl.PaySlipService;
 import ru.arkaleks.salarygallery.model.Employee;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -27,13 +23,13 @@ import java.util.List;
 @Transactional
 public class SalaryCardController {
 
-    private final SalaryCardService salaryCardService;
+    private final PaySlipService paySlipService;
 
     @ResponseStatus(value = HttpStatus.OK)
     @PostMapping("/registrationend/uploadfile")
     void uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            salaryCardService.uploadFile(file);
+            paySlipService.uploadFile(file);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -50,7 +46,7 @@ public class SalaryCardController {
      */
     @GetMapping("/registrationend/all")
     public List<EmployeeDto> getAllUsers() {
-        return salaryCardService.getAllEmployees();
+        return paySlipService.getAllEmployees();
     }
 
 
@@ -64,7 +60,7 @@ public class SalaryCardController {
     @ResponseBody
     @PostMapping("/registrationend/addnew")
     EmployeeDto addNewUser(@RequestBody Employee newEmployee) {
-        return salaryCardService.saveNewEmployee(newEmployee);
+        return paySlipService.saveNewEmployee(newEmployee);
     }
 
 }

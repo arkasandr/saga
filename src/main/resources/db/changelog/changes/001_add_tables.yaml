@@ -45,10 +45,10 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - createTable:
-            tableName: salarycard
+            tableName: payslip
             columns:
               - column:
-                  name: salarycard_id
+                  name: payslip_id
                   type: int
                   autoIncrement: true
                   constraints:
@@ -78,5 +78,5 @@ databaseChangeLog:
                   type: int
                   constraints:
                     references: employee(employee_id)
-                    foreignKeyName: fk_employee_to_salarycard
+                    foreignKeyName: fk_employee_to_payslip
 

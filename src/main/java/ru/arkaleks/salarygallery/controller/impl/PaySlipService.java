@@ -6,8 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,13 +13,10 @@ import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
 import ru.arkaleks.salarygallery.controller.mapper.EmployeeMapper;
 import ru.arkaleks.salarygallery.model.DocumentPdf;
 import ru.arkaleks.salarygallery.model.Employee;
-import ru.arkaleks.salarygallery.model.SalaryCard;
+import ru.arkaleks.salarygallery.model.PaySlip;
 import ru.arkaleks.salarygallery.repository.EmployeeRepository;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -36,20 +31,23 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class SalaryCardService {
+public class PaySlipService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
     private EmployeeMapper mapper = EmployeeMapper.INSTANCE;
 
 
-    public void multipartFileToFile(MultipartFile multipart) throws IOException {
-        Path filepath = Paths.get("C:/Projects/saga/src/main/resources/pdf", multipart.getOriginalFilename());
-        multipart.transferTo(filepath);
-    }
-
+    /**
+     * Метод преобразует MultipartFile в File
+     *
+     * @param
+     * @return File
+     * @throws IOException
+     */
     public  static File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
-        File convFile = new File(System.getProperty("java.io.tmpdir")+ "/" + multipart.getOriginalFilename());
+      //  File convFile = new File(System.getProperty("java.io.tmpdir")+ "/" + multipart.getOriginalFilename());
+        File convFile = new File("C:/Projects/saga/src/main/resources/pdf" + "/" + multipart.getOriginalFilename());
         multipart.transferTo(convFile);
         return convFile;
     }
@@ -119,7 +117,6 @@ public class SalaryCardService {
     public Employee getDataFromPDF(File file) throws IOException, ParseException {
         Employee result = new Employee();
         try {
-        //   File file = new File("C:/projects/salarycards/SalaryCard_05_rom.pdf");
             PDDocument document = PDDocument.load(file);
             PDFTextStripper pdfStripper = new PDFTextStripper();
             String text = pdfStripper.getText(document);
@@ -134,7 +131,7 @@ public class SalaryCardService {
                 String company = StringUtils.substringAfter(lines.get(0), "Организация ").trim();
                 String department = StringUtils.substringAfter(lines.get(2), company + " ").trim();
                 String position = lines.get(4).trim();
-                List<SalaryCard> salaryCards = new ArrayList<>();
+                List<PaySlip> paySlips = new ArrayList<>();
                 int year = Integer.parseInt(StringUtils.substringAfterLast(lines.get(1).trim(), " "));
                 String month = StringUtils.substringBetween(lines.get(1).trim(), "начисления ", " " + year);
                 Double advance = (DecimalFormat.getNumberInstance().parse(StringUtils.substringBetween
@@ -146,9 +143,9 @@ public class SalaryCardService {
                         (lines.get(5).trim(), "выплате: ")).doubleValue()) * 1000 +
                         DecimalFormat.getNumberInstance().parse(StringUtils.substringAfterLast
                                 (lines.get(5).trim(), " ")).doubleValue();
-                SalaryCard salaryCard = new SalaryCard(id, year, month, advance, salary, doc);
-                doc.setSalarycard(salaryCard);
-                salaryCard.setDocumentPdf(doc);
+                PaySlip paySlip = new PaySlip(id, year, month, advance, salary, doc);
+                doc.setPaySlip(paySlip);
+                paySlip.setDocumentPdf(doc);
                 result.setId(id);
                 result.setSurname(surname);
                 result.setFirstName(firstName);
@@ -156,9 +153,9 @@ public class SalaryCardService {
                 result.setCompany(company);
                 result.setDepartment(department);
                 result.setPosition(position);
-                salaryCard.setEmployee(result);
-                salaryCards.add(salaryCard);
-                result.setSalaryCards(salaryCards);
+                paySlip.setEmployee(result);
+                paySlips.add(paySlip);
+                result.setPaySlips(paySlips);
                 document.close();
             } else {
                 System.out.println("Расчетный лист пустой!");

@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 0.1
  */
 @Data
-public class SalaryCardDto {
+public class PaySlipDto {
 
     private int id;
 

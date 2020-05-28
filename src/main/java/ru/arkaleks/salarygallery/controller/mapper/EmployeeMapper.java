@@ -5,10 +5,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import ru.arkaleks.salarygallery.controller.dto.DocumentPdfDto;
 import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
-import ru.arkaleks.salarygallery.controller.dto.SalaryCardDto;
+import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
 import ru.arkaleks.salarygallery.model.DocumentPdf;
 import ru.arkaleks.salarygallery.model.Employee;
-import ru.arkaleks.salarygallery.model.SalaryCard;
+import ru.arkaleks.salarygallery.model.PaySlip;
 
 import java.util.List;
 
@@ -26,9 +26,9 @@ public interface EmployeeMapper {
 
     EmployeeDto mapToEmployeeDto(Employee employeeEntity);
 
-    List<SalaryCardDto> mapToSalaryCardDtoList(List<SalaryCard> salaryCardList);
+    List<PaySlipDto> mapToSalaryCardDtoList(List<PaySlip> paySlipList);
 
-    SalaryCardDto mapToSalaryCardDto(SalaryCard salaryCardEntity);
+    PaySlipDto mapToSalaryCardDto(PaySlip paySlipEntity);
 
     DocumentPdfDto mapToDocumentPdfDto(DocumentPdf documentPdfEntity);
 

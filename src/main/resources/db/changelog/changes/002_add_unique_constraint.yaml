@@ -9,10 +9,10 @@ databaseChangeLog:
       changes:
         -  addUniqueConstraint:
               columnNames: year, month, employee_id
-              constraintName: salarycard_constraint
+              constraintName: payslip_constraint
               deferrable: true
               disabled: true
               initiallyDeferred: true
               schemaName: public
-              tableName: salarycard
+              tableName: payslip
               validate: true

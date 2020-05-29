@@ -19,26 +19,36 @@ databaseChangeLog:
               - column:
                   name: surname
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: first_name
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: middle_name
                   type: varchar(255)
               - column:
                   name: company
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: department
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: position
                   type: varchar(255)
+                  constraints:
+                    nullable: false
         - createTable:
-            tableName: salarycard
+            tableName: payslip
             columns:
               - column:
-                  name: salarycard_id
+                  name: payslip_id
                   type: int
                   autoIncrement: true
                   constraints:
@@ -46,18 +56,27 @@ databaseChangeLog:
               - column:
                   name: year
                   type: int
+                  constraints:
+                    nullable: false
               - column:
                   name: month
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: advance
                   type: double(53)
+                  constraints:
+                    nullable: false
               - column:
                   name: salary
                   type: double(53)
+                  constraints:
+                    nullable: false
               - column:
                   name: employee_id
                   type: int
                   constraints:
                     references: employee(employee_id)
-                    foreignKeyName: fk_employee_to_salarycard
+                    foreignKeyName: fk_employee_to_payslip
+

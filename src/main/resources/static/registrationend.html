@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, shrink-to-fit=no">
+
+    <title>SalaryGallery</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <h3 class="header__title">
+                    <img src="img/logo3.png" alt="salarygallery" class="logo">
+                    SalaryGallery
+                </h3>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<section class="registrationend">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-5 offset-md-1">
+                <div>
+                    <p class="registration__text">
+                        Для завершения процесса регистрации необходимо <br>
+                        добавить Ваши персональные данные. <br>
+                        Сделайте это, заполнив форму ниже
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="registrationend__card__add">
+                    <form class="form-horizontal" id="registrationend-card-add-form">
+                        <div class="registrationend__card__add__id">
+                            <input type="text" placeholder="Введите табельный номер"
+                                   class="registrationend__card__add__input__id" required
+                                   id="registrationend-card-add-id">
+                        </div>
+                        <div class="registrationend__card__add__id">
+                            <input type="text" placeholder="Введите фамилию"
+                                   class="registrationend__card__add__input__surname"
+                                   required
+                                   id="registrationend-card-add-surname">
+                            <input type="text" placeholder="Введите имя"
+                                   class="registrationend__card__add__input__firstname"
+                                   required
+                                   id="registrationend-card-add-firstname">
+                            <input type="text" placeholder="Введите отчество"
+                                   class="registrationend__card__add__input__middlename" required
+                                   id="registrationend-card-add-middlename">
+                        </div>
+                        <div class="registrationend__card__add__id">
+                            <input type="text" placeholder="Введите компанию"
+                                   class="registrationend__card__add__input__company"
+                                   required
+                                   id="registrationend-card-add-company">
+                            <input type="text" placeholder="Введите отдел"
+                                   class="registrationend__card__add__input__department"
+                                   required
+                                   id="registrationend-card-add-department">
+                            <input type="text" placeholder="Введите должность"
+                                   class="registrationend__card__add__input__position" required
+                                   id="registrationend-card-add-position">
+                        </div>
+
+                        <div>
+                            <button id="registrationend-card-add-btn" type="submit" class="btn btn-secondary btn-sm">
+                                Добавить данные
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5 offset-md-1">
+                <div>
+                    <p class="registrationend__text__load">
+                        Или загрузите свой расчетный лист <br>
+                        для автоматического заполнения данных. <br>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="registrationend__card__load">
+
+                    <label>
+                        <div> Загрузить файл...</div>
+                        <input id="file-input-choose2" type="file" name="pdfname2" style="display: none;"/>
+                        <small id="loadingHelpBlock" class="form-text">
+                            Обратите внимание, файл должен быть в формате .PDF
+                        </small>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/registrationend.js"></script>
+</body>
+</html>

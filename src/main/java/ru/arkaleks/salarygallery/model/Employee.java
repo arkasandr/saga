@@ -3,6 +3,7 @@ package ru.arkaleks.salarygallery.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,20 +34,34 @@ public class Employee {
     @Column(name = "EMPLOYEE_ID")
     private int id;
 
+    @NonNull
     private String surname;
 
+    @NonNull
     private String firstName;
 
+    @NonNull
     private String middleName;
 
+    @NonNull
     private String company;
 
+    @NonNull
     private String department;
 
+    @NonNull
     private String position;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<SalaryCard> salaryCards;
+    @NonNull
+    private String username;
 
+    @NonNull
+    private String password;
+
+    @NonNull
+    private String email;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<PaySlip> paySlips;
 
 }

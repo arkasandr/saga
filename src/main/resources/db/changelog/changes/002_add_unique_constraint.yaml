@@ -8,11 +8,11 @@ databaseChangeLog:
       author: Alex Arkashev
       changes:
         -  addUniqueConstraint:
-              columnNames: year, month
-              constraintName: salarycard_constraint
+              columnNames: year, month, employee_id
+              constraintName: payslip_constraint
               deferrable: true
               disabled: true
               initiallyDeferred: true
               schemaName: public
-              tableName: salarycard
+              tableName: payslip
               validate: true

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, shrink-to-fit=no">
+
+    <title>SalaryGallery</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <h3 class="header__title">
+                    <img src="img/logo3.png" alt="salarygallery" class="logo">
+                    SalaryGallery
+                </h3>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<section class="registrationstart">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-5 offset-md-1">
+                <div>
+                    <p class="registration__text">
+                        Для регистрации на сервисе требуется указать<br>
+                        Ваш логин, пароль и адрес электронной почты.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 ">
+                <div class="registrationstart__add">
+                    <form class="form-horizontal" id="registrationstart-add-form">
+                        <div class="registrationstart__add__login">
+                            <input type="text" placeholder="Введите логин"
+                                   class="registrationstart__add__login__input" required
+                                   id="registrationstart-add-login">
+                        </div>
+                        <div class="registrationstart__add__password">
+                            <input type="text" placeholder="Введите пароль"
+                                   class="registrationstart__add__password__input" required
+                                   id="registrationstart-add-password">
+                        </div>
+                        <div class="registrationstart__add__email">
+                            <input type="text" placeholder="Введите почту"
+                                   class="registrationstart__add__email__input" required
+                                   id="registrationstart-add-email">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 offset-md-1">
+                <div class="registrationstart__next">
+                    <a href="registrationend.html">
+                        <button id="registrationstart-next-btn" type="submit" class="btn btn-secondary btn-sm">
+                            Продолжить
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/registrationend.js"></script>
+</body>
+</html>

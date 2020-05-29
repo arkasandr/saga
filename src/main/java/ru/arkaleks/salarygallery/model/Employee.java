@@ -20,8 +20,8 @@ import java.util.List;
 @Table(name = "EMPLOYEE")
 public class Employee {
 
-    public Employee(int id, String surname, String firstName, String middleName, String company, String department, String position) {
-        this.id = id;
+    public Employee(int employeeNumber, String surname, String firstName, String middleName, String company, String department, String position) {
+        this.employeeNumber = employeeNumber;
         this.surname = surname;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -31,8 +31,12 @@ public class Employee {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYEE_ID")
     private int id;
+
+    @NonNull
+    private int employeeNumber;
 
     @NonNull
     private String surname;
@@ -63,5 +67,8 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<PaySlip> paySlips;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<EmployeeRole> employeeRole;
 
 }

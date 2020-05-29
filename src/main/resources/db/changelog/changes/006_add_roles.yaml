@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username: postgres
+
+  - changeSet:
+      id: 6
+      author: Alex Arkashev
+      changes:
+        - createTable:
+            tableName: employeerole
+            columns:
+              - column:
+                  name: employeerole_id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: true
+                    primaryKey: true
+              - column:
+                  name: rolename
+                  type: varchar(255)
+              - column:
+                  name: employee_id
+                  type: int
+                  constraints:
+                    nullable: true
+                    references: employee(employee_id)
+                    foreignKeyName: fk_employee_to_employeerole

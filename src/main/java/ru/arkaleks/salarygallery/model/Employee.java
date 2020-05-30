@@ -30,6 +30,19 @@ public class Employee {
         this.position = position;
     }
 
+    public Employee(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public Employee(@NonNull String username, @NonNull String password, @NonNull String email, List<EmployeeRole> employeeRole) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.employeeRole = employeeRole;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYEE_ID")

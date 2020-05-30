@@ -16,11 +16,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
-import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
-import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.*;
 import ru.arkaleks.salarygallery.controller.impl.PaySlipService;
 import ru.arkaleks.salarygallery.service.UserService;
+
+import javax.sql.DataSource;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -42,8 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SagaAuthenticationProvider sagaProvider;
 
-//    @Autowired
-//    DataSource dataSource;
+    @Autowired
+    DataSource dataSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -65,8 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(STATELESS)
-                .and()
+//                .sessionManagement().sessionCreationPolicy(STATELESS)
+//                .and()
                 .addFilterBefore(customLoginFilter(), RememberMeAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/index.html", "/login*", "/error.html",
@@ -92,12 +92,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMeServices(rememberMeServices());
     }
 
-//    @Bean
-//    PersistentTokenRepository persistentTokenRepository() {
-//        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
-//        db.setDataSource(dataSource);
-//        return db;
-//    }
+    @Bean
+    PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+        db.setDataSource(dataSource);
+        return db;
+    }
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {

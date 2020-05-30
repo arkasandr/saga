@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.arkaleks.salarygallery.repository.EmployeeRepository;
-import ru.arkaleks.salarygallery.service.UserDetailsAdapter;
 
 
 @Service

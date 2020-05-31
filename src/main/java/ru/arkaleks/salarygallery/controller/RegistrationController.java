@@ -37,7 +37,7 @@ public class RegistrationController {
     @PostMapping("/registrationstart/continue")
     EmployeeDto registerNewEmployee(@RequestBody Employee newEmployee) {
         registrationService.saveEmployeeWithoutEmployeeRole(newEmployee);
-//        registrationService.setUserRoleToEmployee(newEmployee);
+        registrationService.setUserRoleToEmployee(newEmployee);
         return registrationService.addNewEmployee(newEmployee);
     }
 

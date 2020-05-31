@@ -65,12 +65,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(STATELESS)
-//                .and()
+                .sessionManagement().sessionCreationPolicy(STATELESS)
+                .and()
                 .addFilterBefore(customLoginFilter(), RememberMeAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/index.html", "/login*", "/error.html",
-                        "/registrationstart.html", "/registrationend.html")
+                        "/registrationstart.html", "/registrationend.html", "/registrationstart.html", "/registrationstart/continue")
                 .permitAll()
                 .antMatchers("/editor.html", "/users.html")
                 .hasRole("ADMIN")

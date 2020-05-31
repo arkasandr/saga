@@ -48,34 +48,33 @@ public class Employee {
     @Column(name = "EMPLOYEE_ID")
     private int id;
 
-    @NonNull
+
     private int employeeNumber;
 
-    @NonNull
+
     private String surname;
 
-    @NonNull
+
     private String firstName;
 
-    @NonNull
+
     private String middleName;
 
-    @NonNull
+
     private String company;
 
-    @NonNull
+
     private String department;
 
-    @NonNull
+
     private String position;
 
-    @NonNull
+
     private String username;
 
-    @NonNull
+
     private String password;
 
-    @NonNull
     private String email;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)

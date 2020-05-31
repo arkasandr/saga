@@ -6,7 +6,8 @@ $(document).ready(function () {
         var employeeDto = {
             username: username,
             password: password,
-            email: email
+            email: email,
+
         };
         var resultJson = JSON.stringify(employeeDto);
         if (username !== "" && password !== ""&& email !== "") {
@@ -39,29 +40,3 @@ $(document).ready(function () {
     }
 });
 
-
-
-// function addNewUserAjax(json) {
-//     $.ajax({
-//         dataType: "json",
-//         contentType: "application/json; charset=utf-8",
-//         type: "POST",
-//         url: "http://localhost:9090/users/addnewuser",
-//         data: json,
-//         timeout: 100000,
-//         success: function () {
-//             console.log("SUCCESS: ", "ok222");
-//             window.location = "http://localhost:9090/users.html";
-//         },
-//         error: function () {
-//             $('#users-add-btn').parent().append('<p>Username has been already exists!</p>');
-//             console.log("ERROR: ", e);
-//             event.preventDefault();
-//
-//         },
-//         done: function (e) {
-//             console.log("DONE");
-//             enableAddNewUserButton(true);
-//         }
-//     });
-// }

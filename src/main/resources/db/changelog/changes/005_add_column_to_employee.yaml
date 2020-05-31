@@ -12,5 +12,5 @@ databaseChangeLog:
             columns:
               - column:
                   beforeColumn: surname
-                  name: employeenumber
+                  name: employee_number
                   type: int

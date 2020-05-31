@@ -2,9 +2,6 @@ package ru.arkaleks.salarygallery.controller.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,11 +72,11 @@ public class RegistrationService {
      * @return
      * @throws
      */
-//    public void setUserRoleToEmployee(Employee newEmployee) {
-//        List<EmployeeRole> roles = Arrays.asList(new EmployeeRole("ROLE_USER"));
-//        roles.get(0).setEmployee(employeeRepository.findByUsername(newEmployee.getUsername()).get());
-//        employeeRepository.findByUsername(newEmployee.getUsername()).get().setEmployeeRole(roles);
-//    }
+    public void setUserRoleToEmployee(Employee newEmployee) {
+        List<EmployeeRole> roles = Arrays.asList(new EmployeeRole("ROLE_USER"));
+        roles.get(0).setEmployee(employeeRepository.findByUsername(newEmployee.getUsername()).get());
+        employeeRepository.findByUsername(newEmployee.getUsername()).get().setEmployeeRole(roles);
+    }
 
     /**
      * Метод добавляет нового пользователя сотрудника Employee в приложение

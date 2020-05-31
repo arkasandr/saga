@@ -2,6 +2,11 @@ package ru.arkaleks.salarygallery.controller.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,9 +15,12 @@ import ru.arkaleks.salarygallery.controller.mapper.EmployeeMapper;
 import ru.arkaleks.salarygallery.model.Employee;
 import ru.arkaleks.salarygallery.model.EmployeeRole;
 import ru.arkaleks.salarygallery.repository.EmployeeRepository;
+import ru.arkaleks.salarygallery.service.UserDetailsAdapter;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Alex Arkashev (arkasandr@gmail.com)
@@ -88,5 +96,36 @@ public class RegistrationService {
     public EmployeeDto addNewEmployee(Employee newEmployee) {
         return employeeMapper.mapToEmployeeDto(employeeRepository.findByUsername(newEmployee.getUsername()).get());
     }
+
+
+    /**
+     * Метод обновляет данные сотрудника Employee
+     *
+     * @param
+     * @return EmployeeDTO
+     * @throws
+     */
+    public EmployeeDto updateEmployeeByUsername(Employee employee) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        RememberMeAuthenticationToken token = (RememberMeAuthenticationToken) auth;
+        UserDetailsAdapter employee1 = (UserDetailsAdapter)token.getPrincipal();
+        String username = employee1.getUsername();
+        return employeeMapper.mapToEmployeeDto(employeeRepository
+                .findByUsername(username)
+                .map(x -> {
+                    x.setEmployeeNumber(employee.getEmployeeNumber());
+                    x.setSurname(employee.getSurname());
+                    x.setFirstName(employee.getFirstName());
+                    x.setMiddleName(employee.getMiddleName());
+                    x.setCompany(employee.getCompany());
+                    x.setDepartment(employee.getDepartment());
+                    x.setPosition(employee.getPosition());
+                    return employeeRepository.save(x);
+                })
+                .orElseGet(() -> {
+                    throw new IllegalArgumentException("Sorry, User with Username = " + employee.getUsername() + " is not exists!");
+                }));
+    }
+
 
 }

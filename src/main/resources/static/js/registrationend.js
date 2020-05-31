@@ -20,7 +20,7 @@ jQuery(document).ready(function ($) {
         };
         var resultJson = JSON.stringify(employeeDto);
         if (employeeNumber !==" " && surname !== "" && firstname !== "" && middlename !== "") {
-            addNewUserAjax(resultJson);
+            addEmployeeDataAjax(resultJson);
             event.preventDefault();
         } else {
             alert("Заполните, пожалуйста, все поля!");
@@ -60,12 +60,12 @@ function enableAddNewUserButton(flag) {
     $('#registrationend-card-add-btn').prop("disabled", flag);
 }
 
-function addNewUserAjax(json) {
+function addEmployeeDataAjax(json) {
     $.ajax({
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         type: "POST",
-        url: "http://localhost:9090/registrationend/addnew",
+        url: "http://localhost:9090/registrationend/adddata",
         data: json,
         timeout: 100000,
         success: function () {
@@ -74,7 +74,7 @@ function addNewUserAjax(json) {
         },
         error: function () {
             $('#registrationend-card-add-btn').parent().append('<p>Сотрудник с такими данными уже существует!</p>');
-            console.log("ERROR: ", e);
+            console.log("ERROR: ");
             event.preventDefault();
 
         },

@@ -107,8 +107,7 @@ public class RegistrationService {
      */
     public EmployeeDto updateEmployeeByUsername(Employee employee) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        RememberMeAuthenticationToken token = (RememberMeAuthenticationToken) auth;
-        UserDetailsAdapter employee1 = (UserDetailsAdapter)token.getPrincipal();
+        UserDetailsAdapter employee1 = (UserDetailsAdapter)auth.getPrincipal();
         String username = employee1.getUsername();
         return employeeMapper.mapToEmployeeDto(employeeRepository
                 .findByUsername(username)

@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username: postgres
+
+  - changeSet:
+      id: 5
+      author: Alex Arkashev
+      changes:
+        - addColumn:
+            tableName: employee
+            columns:
+              - column:
+                  beforeColumn: surname
+                  name: employee_number
+                  type: int

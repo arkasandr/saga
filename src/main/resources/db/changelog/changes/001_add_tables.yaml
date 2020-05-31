@@ -20,12 +20,12 @@ databaseChangeLog:
                   name: surname
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: first_name
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: middle_name
                   type: varchar(255)
@@ -33,17 +33,17 @@ databaseChangeLog:
                   name: company
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: department
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: position
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
         - createTable:
             tableName: payslip
             columns:

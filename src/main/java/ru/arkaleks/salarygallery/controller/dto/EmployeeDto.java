@@ -2,6 +2,7 @@ package ru.arkaleks.salarygallery.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import ru.arkaleks.salarygallery.model.EmployeeRole;
 import ru.arkaleks.salarygallery.model.PaySlip;
 
 import java.util.List;
@@ -36,4 +37,8 @@ public class EmployeeDto {
 
     @JsonIgnore
     private List<PaySlip> paySlips;
+
+    @JsonIgnore
+    private List<EmployeeRole> employeeRole;
+
 }

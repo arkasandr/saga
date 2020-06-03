@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
             position: position
         };
         var resultJson = JSON.stringify(employeeDto);
-        if (employeeNumber !==" " && surname !== "" && firstname !== "" && middlename !== "") {
+        if (employeeNumber !== " " && surname !== "" && firstname !== "" && middlename !== "") {
             addEmployeeDataAjax(resultJson);
             event.preventDefault();
         } else {
@@ -45,10 +45,12 @@ jQuery(document).ready(function ($) {
                 success: function () {
                     console.log("SUCCESS: ", "ok222");
                     $("#button2").prop("disabled", false);
+                    e.preventDefault();
                 },
                 error: function () {
                     alert("Не удалось загрузить файл!");
                     $("#button2").prop("disabled", false);
+                    e.preventDefault();
                 }
             });
         })

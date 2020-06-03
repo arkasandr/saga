@@ -70,10 +70,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(customLoginFilter(), RememberMeAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/index.html", "/login*", "/error.html",
-                        "/registrationstart.html", "/registrationend.html", "/registrationstart.html", "/registrationstart/continue")
+                        "/registrationstart.html", "/registrationstart/continue")
                 .permitAll()
-                .antMatchers("/editor.html", "/users.html")
-                .hasRole("ADMIN")
+                .antMatchers( "/registrationend.html")
+                .hasRole("USER")
                 .antMatchers("/resources/**")
                 .permitAll()
                 .anyRequest()

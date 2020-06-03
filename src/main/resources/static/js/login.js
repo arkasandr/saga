@@ -8,7 +8,7 @@ $(document).ready(function () {
         };
         var resultJson = JSON.stringify(userDTO);
         if (username !== "" && password !== "") {
-            sentUserData(resultJson);
+            registerNewEmployee(resultJson);
             event.preventDefault();
         } else {
             alert("Заполните, пожалуйста, оба поля!");
@@ -16,7 +16,7 @@ $(document).ready(function () {
         }
     });
 
-    function sentUserData(json) {
+    function registerNewEmployee(json) {
         $.ajax({
             dataType: "json",
             contentType: "application/json; charset=utf-8",

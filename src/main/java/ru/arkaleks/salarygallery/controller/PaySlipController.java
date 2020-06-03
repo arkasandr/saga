@@ -1,6 +1,7 @@
 package ru.arkaleks.salarygallery.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @Transactional
-public class SalaryCardController {
+public class PaySlipController {
 
+    @Autowired
     private final PaySlipService paySlipService;
 
     @ResponseStatus(value = HttpStatus.OK)
@@ -35,32 +37,6 @@ public class SalaryCardController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Метод находит всех пользователей User
-     *
-     * @param
-     * @return List<User>
-     * @throws
-     */
-    @GetMapping("/registrationend/all")
-    public List<EmployeeDto> getAllUsers() {
-        return paySlipService.getAllEmployees();
-    }
-
-
-    /**
-     * Метод сохраняет нового пользователя User
-     *
-     * @param
-     * @return UserDTO
-     * @throws
-     */
-    @ResponseBody
-    @PostMapping("/registrationend/addnew")
-    EmployeeDto addNewUser(@RequestBody Employee newEmployee) {
-        return paySlipService.saveNewEmployee(newEmployee);
     }
 
 }

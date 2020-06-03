@@ -29,8 +29,34 @@ $(document).ready(function () {
             timeout: 100000,
 
             success: function () {
-                window.location = "http://localhost:9090/registrationend.html";
+
                 console.log("SUCCESS: ", "ok222");
+
+                var username = $("#registrationstart-add-login").val();
+                var password = $("#registrationstart-add-password").val();
+                var employeeDto = {
+                    username: username,
+                    password: password,
+                }
+                var json = JSON.stringify(employeeDto);
+
+                $.ajax({
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    url: "http://localhost:9090/login",
+                    data: json,
+                    timeout: 100000,
+
+                    success: function () {
+                        console.log("SUCCESS: ", "ok222");
+                        window.location = "http://localhost:9090/registrationend.html";
+                    },
+                    error: function () {
+                        alert("Авторизация не выполнена!");
+                    }
+
+                });
             },
             error: function () {
                 alert("Ошибка регистрации!");
@@ -38,5 +64,6 @@ $(document).ready(function () {
 
         });
     }
+
 });
 

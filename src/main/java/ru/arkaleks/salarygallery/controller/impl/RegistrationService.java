@@ -2,11 +2,6 @@ package ru.arkaleks.salarygallery.controller.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.RememberMeAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +10,9 @@ import ru.arkaleks.salarygallery.controller.mapper.EmployeeMapper;
 import ru.arkaleks.salarygallery.model.Employee;
 import ru.arkaleks.salarygallery.model.EmployeeRole;
 import ru.arkaleks.salarygallery.repository.EmployeeRepository;
-import ru.arkaleks.salarygallery.service.UserDetailsAdapter;
 
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Alex Arkashev (arkasandr@gmail.com)
@@ -38,6 +30,9 @@ public class RegistrationService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private CurrentUserService currentUserService;
+
     private EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
 
     /**
@@ -50,8 +45,12 @@ public class RegistrationService {
     public void saveEmployeeWithoutEmployeeRole(Employee newEmployee) {
         List<Employee> employees = employeeRepository.findAll();
         for (Employee employee : employees) {
-            if (employee.getUsername().equals(newEmployee.getUsername())) {
-                throw new IllegalArgumentException("Sorry, User with Username = " + employee.getUsername() + " is exists!");
+            if (employee.getUsername() != null) {
+                if (employee.getUsername().equals(newEmployee.getUsername())) {
+                    throw new IllegalArgumentException("Извините, имя пользователя \" = " + employee.getUsername() + " \" уже существует!");
+                }
+            } else {
+                throw new IllegalArgumentException("Извините, имя пользователя не задано!");
             }
         }
         Employee addEmployee = new Employee(newEmployee.getUsername(), newEmployee.getPassword(), newEmployee.getEmail());
@@ -106,9 +105,7 @@ public class RegistrationService {
      * @throws
      */
     public EmployeeDto updateEmployeeByUsername(Employee employee) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsAdapter employee1 = (UserDetailsAdapter)auth.getPrincipal();
-        String username = employee1.getUsername();
+        String username = currentUserService.getCurrentEmployee().getUsername();
         return employeeMapper.mapToEmployeeDto(employeeRepository
                 .findByUsername(username)
                 .map(x -> {
@@ -122,9 +119,8 @@ public class RegistrationService {
                     return employeeRepository.save(x);
                 })
                 .orElseGet(() -> {
-                    throw new IllegalArgumentException("Sorry, User with Username = " + employee.getUsername() + " is not exists!");
+                    throw new IllegalArgumentException("Извините, имя пользователя \" " + employee.getUsername() + " \" не существует!");
                 }));
     }
-
 
 }

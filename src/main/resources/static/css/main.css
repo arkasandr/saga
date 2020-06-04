@@ -290,3 +290,20 @@ h3 {
     text-align: center;
     padding: 20px 20px 800px 0;
 }
+
+.account {
+    background: #669966;
+}
+
+.account__payslip {
+    font-size: 18px;
+    color: #fff;
+    background: #404251;
+    padding: 100px 0 20px 0;
+}
+
+.account__payslip__search {
+    font-size: 18px;
+    color: #fff;
+    padding-bottom: 200px;
+}

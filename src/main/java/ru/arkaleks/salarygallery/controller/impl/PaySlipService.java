@@ -63,7 +63,6 @@ public class PaySlipService {
     public void uploadFile(MultipartFile multiFile) throws IOException, ParseException {
         String uploadDir = "C:/Projects/saga/src/main/resources/pdf";
         File file = multipartToFile(multiFile);
-        //Employee employee = getDataFromPDF(file);
         getDataFromPDF(file);
     }
 

@@ -26,7 +26,7 @@ $(document).ready(function () {
             timeout: 100000,
 
             success: function () {
-                window.location = "http://localhost:9090/index.html";
+                window.location = "http://localhost:9090/account.html";
                 console.log("SUCCESS: ", "ok222");
             },
             error: function () {

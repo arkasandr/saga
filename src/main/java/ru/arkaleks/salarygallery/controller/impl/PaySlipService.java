@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
 import ru.arkaleks.salarygallery.controller.mapper.EmployeeMapper;
 import ru.arkaleks.salarygallery.model.DocumentPdf;
-import ru.arkaleks.salarygallery.model.Employee;
 import ru.arkaleks.salarygallery.model.PaySlip;
 import ru.arkaleks.salarygallery.repository.EmployeeRepository;
 
@@ -35,7 +33,10 @@ public class PaySlipService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
-    private EmployeeMapper mapper = EmployeeMapper.INSTANCE;
+    private EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
+
+    @Autowired
+    private CurrentUserService currentUserService;
 
 
     /**
@@ -45,8 +46,7 @@ public class PaySlipService {
      * @return File
      * @throws IOException
      */
-    public  static File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
-      //  File convFile = new File(System.getProperty("java.io.tmpdir")+ "/" + multipart.getOriginalFilename());
+    public static File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
         File convFile = new File("C:/Projects/saga/src/main/resources/pdf" + "/" + multipart.getOriginalFilename());
         multipart.transferTo(convFile);
         return convFile;
@@ -54,57 +54,18 @@ public class PaySlipService {
 
 
     /**
-     * Метод сохраняет нового пользователя User без роли UserRole
+     * Метод сохраняет PDF файл и добавляет днные из него к зарегистрированному сотруднику
      *
      * @param
      * @return
-     * @throws
+     * @throws IOException, ParseException
      */
-
     public void uploadFile(MultipartFile multiFile) throws IOException, ParseException {
         String uploadDir = "C:/Projects/saga/src/main/resources/pdf";
         File file = multipartToFile(multiFile);
-          Employee employee = getDataFromPDF(file);
-            if (employee.getSurname() != null) {
-                System.out.println(employee.getSurname());
-                employeeRepository.save(employee);
-            } else {
-                throw new IllegalArgumentException("Данные не сохранены!");
-            }
+        //Employee employee = getDataFromPDF(file);
+        getDataFromPDF(file);
     }
-
-
-    /**
-     * Метод находит всех пользователей User
-     *
-     * @param
-     * @return List<UserDto>
-     * @throws
-     */
-    public List<EmployeeDto> getAllEmployees() {
-        return mapper.mapToEmployeeDtoList(employeeRepository.findAll());
-    }
-
-    /**
-     * Метод сохраняет нового пользователя User без роли UserRole
-     *
-     * @param
-     * @return
-     * @throws
-     */
-    public EmployeeDto saveNewEmployee(Employee newEmployee) {
-        List<Employee> employees = employeeRepository.findAll();
-        for (Employee emp : employees) {
-            if (emp.getId() == newEmployee.getId()) {
-                throw new IllegalArgumentException("Sorry, User with id = " + emp.getId() + " is exists!");
-            }
-        }
-        Employee addEmployee = new Employee(newEmployee.getId(), newEmployee.getSurname(), newEmployee.getFirstName(),
-                newEmployee.getMiddleName(), newEmployee.getCompany(), newEmployee.getDepartment(), newEmployee.getPosition());
-        employeeRepository.save(addEmployee);
-        return mapper.mapToEmployeeDto(employeeRepository.findById(newEmployee.getId()).get());
-    }
-
 
 
     /**
@@ -114,17 +75,20 @@ public class PaySlipService {
      * @return Employee
      * @throws IOException, ParseException
      */
-    public Employee getDataFromPDF(File file) throws IOException, ParseException {
-        Employee result = new Employee();
+    public void getDataFromPDF(File file) throws IOException, ParseException {
+        int id = currentUserService.getCurrentEmployee().getId();
+        String username = currentUserService.getCurrentEmployee().getUsername();
+        String password = currentUserService.getCurrentEmployee().getPassword();
+        String email = currentUserService.getCurrentEmployee().getEmail();
         try {
             PDDocument document = PDDocument.load(file);
             PDFTextStripper pdfStripper = new PDFTextStripper();
             String text = pdfStripper.getText(document);
             if (!text.isEmpty()) {
                 List<String> lines = getLinesFromText(text);
-                int id = Integer.parseInt(lines.get(6).trim());
+                int employeeNumber = Integer.parseInt(lines.get(6).trim());
                 long millis = System.currentTimeMillis();
-                DocumentPdf doc = new DocumentPdf(id, file.getName(), getByteArrayFromFile(file), new java.sql.Date(millis));
+                DocumentPdf doc = new DocumentPdf(employeeNumber, file.getName(), getByteArrayFromFile(file), new java.sql.Date(millis));
                 String surname = StringUtils.substringBefore(lines.get(3), " ").trim();
                 String firstName = StringUtils.substringBetween(lines.get(3), " ", " ").trim();
                 String middleName = StringUtils.substringAfterLast(lines.get(3), firstName + " ").trim();
@@ -143,19 +107,31 @@ public class PaySlipService {
                         (lines.get(5).trim(), "выплате: ")).doubleValue()) * 1000 +
                         DecimalFormat.getNumberInstance().parse(StringUtils.substringAfterLast
                                 (lines.get(5).trim(), " ")).doubleValue();
-                PaySlip paySlip = new PaySlip(id, year, month, advance, salary, doc);
+
+                PaySlip paySlip = new PaySlip(year, month, advance, salary, doc);
                 doc.setPaySlip(paySlip);
                 paySlip.setDocumentPdf(doc);
-                result.setId(id);
-                result.setSurname(surname);
-                result.setFirstName(firstName);
-                result.setMiddleName(middleName);
-                result.setCompany(company);
-                result.setDepartment(department);
-                result.setPosition(position);
-                paySlip.setEmployee(result);
-                paySlips.add(paySlip);
-                result.setPaySlips(paySlips);
+                employeeMapper.mapToEmployeeDto(employeeRepository.findByUsername(username)
+                        .map(x -> {
+                            x.setEmployeeNumber(employeeNumber);
+                            x.setSurname(surname);
+                            x.setFirstName(firstName);
+                            x.setMiddleName(middleName);
+                            x.setCompany(company);
+                            x.setDepartment(department);
+                            x.setPosition(position);
+                            paySlip.setEmployee(x);
+                            paySlips.add(paySlip);
+                            x.setPaySlips(paySlips);
+                            x.setUsername(username);
+                            x.setPassword(password);
+                            x.setEmail(email);
+                            return employeeRepository.save(x);
+                        })
+                        .orElseGet(() -> {
+                            throw new IllegalArgumentException("Извините, имя пользователя уже существует!");
+                        }));
+
                 document.close();
             } else {
                 System.out.println("Расчетный лист пустой!");
@@ -164,7 +140,6 @@ public class PaySlipService {
             ioex.printStackTrace();
             System.out.println("Расчетный лист не найден!");
         }
-        return result;
     }
 
 

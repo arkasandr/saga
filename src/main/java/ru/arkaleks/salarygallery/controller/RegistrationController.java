@@ -39,7 +39,7 @@ public class RegistrationController {
     }
 
     /**
-     * Метод обновляет информацию о новом сотруднике Employee
+     * Метод обновляет информацию о зарегестрированном сотруднике Employee
      *
      * @param
      * @return EmployeeDto
@@ -50,6 +50,5 @@ public class RegistrationController {
     EmployeeDto addNewEmployeeData(@RequestBody Employee newEmployee) {
         return registrationService.updateEmployeeByUsername(newEmployee);
     }
-
 
 }

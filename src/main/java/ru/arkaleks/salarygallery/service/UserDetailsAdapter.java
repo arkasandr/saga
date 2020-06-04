@@ -69,4 +69,8 @@ public class UserDetailsAdapter implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public String getEmail() {
+        return employee.getEmail();
+    }
 }

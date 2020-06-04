@@ -32,6 +32,14 @@ public class PaySlip {
         this.documentPdf = documentPdf;
     }
 
+    public PaySlip(int year, String month, double advance, double salary, DocumentPdf documentPdf) {
+        this.year = year;
+        this.month = month;
+        this.advance = advance;
+        this.salary = salary;
+        this.documentPdf = documentPdf;
+    }
+
     @Id
     @Column(name = "PAYSLIP_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

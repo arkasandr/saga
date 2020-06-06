@@ -73,4 +73,12 @@ public class UserDetailsAdapter implements UserDetails {
     public String getEmail() {
         return employee.getEmail();
     }
+
+    public Employee getEmployee() {
+        return this.employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }

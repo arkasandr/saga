@@ -77,6 +77,7 @@ public class Employee {
 
     private String email;
 
+//    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<PaySlip> paySlips;
 

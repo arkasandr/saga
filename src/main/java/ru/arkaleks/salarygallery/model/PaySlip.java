@@ -59,7 +59,7 @@ public class PaySlip {
     @NonNull
     private double salary;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
 

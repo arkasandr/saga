@@ -72,20 +72,21 @@ public class AccountService {
     public void deleteEmployeePaySlip(Integer paySlipId) {
         Employee employee = currentUserService.getLogInEmployee();
         List<PaySlip> paySlipList = paySlipRepository.findBy(employee);
-        List<Integer> paySlipIdList = new ArrayList<>();
+        List<Integer> paySlipsIdList = new ArrayList<>();
         for (PaySlip paySlip : paySlipList) {
-            paySlipIdList.add(paySlip.getId());
+            paySlipsIdList.add(paySlip.getId());
         }
-        if (paySlipIdList.contains(paySlipId)) {
+        if (paySlipsIdList.contains(paySlipId)) {
             int pdfDocumentId = paySlipRepository.findById(paySlipId).get().getDocumentPdf().getId();
             if (pdfDocumentId != 0) {
                 documentPdfRepository.deleteById(pdfDocumentId);
             }
-            paySlipRepository.deleteById(paySlipId);
+            paySlipRepository.deletePaySlipById(paySlipId);
         } else {
-            throw new IllegalArgumentException("Уникальный номер расчетного листа задан неверно!");
+            throw new IllegalArgumentException("Расчетного листа с таким номером не существует!!");
         }
     }
+
 
 
     /**
@@ -95,21 +96,6 @@ public class AccountService {
      * @return PaySlipDTO
      * @throws
      */
-//    public EmployeeDto addNewPaySlipToEmployee(PaySlip paySlip) {
-//        Employee employee = currentUserService.getLogInEmployee();
-//        List<PaySlip> paySlips = employee.getPaySlips();
-//        for (PaySlip ps : paySlips) {
-//            if (ps.getYear() == paySlip.getYear() && ps.getMonth() == paySlip.getMonth()) {
-//                throw new IllegalArgumentException("Извините, расчетный лист уже существует!");
-//            }
-//        }
-//            paySlip.setEmployee(employee);
-//            paySlips.add(paySlip);
-//            employee.setPaySlips(paySlips);
-//            employeeRepository.save(employee);
-//        return employeeMapper.mapToEmployeeDto(employee);
-//    }
-
     public EmployeeDto addNewPaySlipToEmployee(PaySlip paySlip) {
         String emplName = currentUserService.getCurrentEmployee().getUsername();
         Employee employee = employeeRepository.findByUsername(emplName).get();
@@ -122,9 +108,7 @@ public class AccountService {
         paySlip.setEmployee(employee);
         paySlips.add(paySlip);
         employee.setPaySlips(paySlips);
-
         employeeRepository.save(employee);
-        currentUserService.setLogInEmployee(employee);
         return employeeMapper.mapToEmployeeDto(employee);
     }
 }

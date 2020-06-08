@@ -30,11 +30,11 @@ public interface EmployeeMapper {
 
     EmployeeRoleDto mapToEmployeeRoleDto(EmployeeRole employeeRoleEntity);
 
-    List<PaySlipDto> mapToSalaryCardDtoList(List<PaySlip> paySlipList);
+    List<PaySlipDto> mapToPaySlipDtoList(List<PaySlip> paySlipList);
 
     List<EmployeeRoleDto> mapToEmployeeRoleList(List<EmployeeRole> employeeRoleEntityList);
 
-    PaySlipDto mapToSalaryCardDto(PaySlip paySlipEntity);
+    PaySlipDto mapToPaySlipDto(PaySlip paySlipEntity);
 
     DocumentPdfDto mapToDocumentPdfDto(DocumentPdf documentPdfEntity);
 

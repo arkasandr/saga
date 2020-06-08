@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html", "/login*", "/error.html",
                         "/registrationstart.html", "/registrationstart/continue")
                 .permitAll()
-                .antMatchers( "/registrationend.html")
+                .antMatchers("/registrationend.html", "/editor.html")
                 .hasRole("USER")
                 .antMatchers("/resources/**")
                 .permitAll()
@@ -81,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/clogout.html")
-                .logoutSuccessUrl("/login.html")
+                .logoutSuccessUrl("/index.html")
                 .deleteCookies("remember-me-saga")
                 .and()
                 .exceptionHandling()

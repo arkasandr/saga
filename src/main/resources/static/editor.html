@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, shrink-to-fit=no">
+
+    <title>SalaryGallery</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <h3 class="header__title">
+                    <img src="img/logo3.png" alt="salarygallery" class="logo">
+                    SalaryGallery
+                </h3>
+            </div>
+
+            <div class="col-lg-6 ml-auto">
+                <nav>
+                    <ul class="menu d-flex justify-content-center">
+                        <li class="menu__item">
+                            <a href="index.html">
+                                ГЛАВНАЯ
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="gallery.html">
+                                ГАЛЕРЕЯ
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="editor.html">
+                                РЕДАКТОР
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="clogout.html">
+                                <i class="far fa-sign-out"></i>&nbsp&nbspВЫЙТИ
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="editor__payslip">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="editor__payslip__search__table">
+                    <table id="editor-payslip-all" class="table table-bordered table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">Уникальный номер</th>
+                            <th scope="col">Год</th>
+                            <th scope="col">Месяц</th>
+                            <th scope="col">Аванс</th>
+                            <th scope="col">Зарплата</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="editor__payslip__search">
+                    <form class="form-horizontal" id="editor-payslip-all-search-form">
+                        <button id="getAllPayslips" type="submit" class="btn btn-secondary btn-sm">Найти расчетные
+                            листы
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 offset-md-2">
+                <div class="editor__payslip__add">
+                    <form class="form-horizontal" id="editor-payslip-add-form">
+                        <div class="editor__payslip__add__date">
+                            <input type="text" placeholder="Введите год" class="editor__payslip__add__input__year"
+                                   required
+                                   id="editor-payslip-add-year">
+                            <input type="text" placeholder="Введите месяц" class="editor__payslip__add__input__month"
+                                   required
+                                   id="editor-payslip-add-month">
+                        </div>
+                        <div class="editor__payslip__add__money">
+                            <input type="text" placeholder="Введите аванс" class="editor__payslip__add__input__advance"
+                                   required
+                                   id="editor-payslip-add-advance">
+                            <input type="text" placeholder="Введите зарплату"
+                                   class="editor__payslip__add__input__salary" required
+                                   id="editor-payslip-add-salary">
+                        </div>
+                        <button id="editor-payslip-add-btn" type="submit" class="btn btn-secondary btn-sm"> Добавить
+                            расчетный лист
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-10 offset-md-2">
+                <div class="editor__payslip__delete">
+                    <form class="form-horizontal" id="editor-payslip-delete-form">
+                        <div class="editor__payslip__delete__input">
+                            <input type="text" placeholder="Введите уникальный номер расчетного листа"
+                                   class="editor__payslip__delete__input__id" required
+                                   id="editor-payslip-delete-id">
+                        </div>
+                        <button id="editor-payslip-delete-btn" type="submit" class="btn btn-secondary btn-sm"> Удалить расчетный лист
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/editor.js"></script>
+</body>
+</html>
+
+

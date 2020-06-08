@@ -46,6 +46,7 @@ jQuery(document).ready(function ($) {
                     console.log("SUCCESS: ", "ok222");
                     $("#button2").prop("disabled", false);
                     e.preventDefault();
+                    window.location = "http://localhost:9090/accountpage.html";
                 },
                 error: function () {
                     alert("Не удалось загрузить файл!");
@@ -72,7 +73,7 @@ function addEmployeeDataAjax(json) {
         timeout: 100000,
         success: function () {
             console.log("SUCCESS: ", "ok222");
-            window.location = "http://localhost:9090/registrationend.html";
+            window.location = "http://localhost:9090/accountpage.html";
         },
         error: function () {
             $('#registrationend-card-add-btn').parent().append('<p>Сотрудник с такими данными уже существует!</p>');

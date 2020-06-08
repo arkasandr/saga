@@ -295,32 +295,36 @@ h3 {
     background: #669966;
 }
 
-.account__payslip {
+.editor {
+    background: #669966;
+}
+
+.editor__payslip {
     font-size: 18px;
     color: #fff;
     background: #404251;
     padding: 100px 0 20px 0;
 }
 
-.account__payslip__search {
+.editor__payslip__search {
     font-size: 18px;
     color: #fff;
     padding-bottom: 50px;
 }
 
-.account__payslip__search__table {
+.editor__payslip__search__table {
     font-size: 18px;
     color: #fff;
 }
 
-.account__payslip__delete {
+.editor__payslip__delete {
     font-size: 18px;
     color: #fff;
     padding-bottom: 200px;
 }
 
 
-.account__payslip__delete__input__id {
+.editor__payslip__delete__input__id {
     background: #fff;
     font-size: 16px;
     border-radius: 5px;
@@ -329,32 +333,32 @@ h3 {
 
 }
 
-.account__payslip__delete__input {
+.editor__payslip__delete__input {
     padding-bottom: 10px;
 }
 
 
-.account__payslip__add {
+.editor__payslip__add {
     font-size: 14px;
     color: #000;
     padding-bottom: 50px;
 }
 
 
-.account__payslip__add__date {
+.editor__payslip__add__date {
     font-size: 14px;
     color: #000;
     padding: 10px 0 0 0;
 }
 
-.account__payslip__add__money {
+.editor__payslip__add__money {
     font-size: 14px;
     color: #000;
     padding: 10px 0 10px 0;
 }
 
 
-.account__payslip__add__input__year {
+.editor__payslip__add__input__year {
     background: #fff;
     font-size: 14px;
     border-radius: 5px;
@@ -362,7 +366,7 @@ h3 {
     padding: 0 0 4px 5px;
 }
 
-.account__payslip__add__input__month {
+.editor__payslip__add__input__month {
     background: #fff;
     font-size: 14px;
     border-radius: 5px;
@@ -370,7 +374,7 @@ h3 {
     padding: 0 0 4px 5px;
 }
 
-.account__payslip__add__input__advance {
+.editor__payslip__add__input__advance {
     background: #fff;
     font-size: 14px;
     border-radius: 5px;
@@ -379,7 +383,7 @@ h3 {
 }
 
 
-.account__payslip__add__input__salary {
+.editor__payslip__add__input__salary {
     background: #fff;
     font-size: 14px;
     border-radius: 5px;

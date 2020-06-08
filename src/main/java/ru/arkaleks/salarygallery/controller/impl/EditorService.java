@@ -1,23 +1,21 @@
 package ru.arkaleks.salarygallery.controller.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
+import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
+import ru.arkaleks.salarygallery.controller.mapper.EmployeeMapper;
+import ru.arkaleks.salarygallery.model.DocumentPdf;
+import ru.arkaleks.salarygallery.model.Employee;
+import ru.arkaleks.salarygallery.model.PaySlip;
+import ru.arkaleks.salarygallery.repository.DocumentPdfRepository;
+import ru.arkaleks.salarygallery.repository.EmployeeRepository;
+import ru.arkaleks.salarygallery.repository.PaySlipRepository;
 
-        import lombok.RequiredArgsConstructor;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Service;
-        import org.springframework.transaction.annotation.Transactional;
-        import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
-        import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
-        import ru.arkaleks.salarygallery.controller.mapper.EmployeeMapper;
-        import ru.arkaleks.salarygallery.model.Employee;
-        import ru.arkaleks.salarygallery.model.PaySlip;
-        import ru.arkaleks.salarygallery.repository.DocumentPdfRepository;
-        import ru.arkaleks.salarygallery.repository.EmployeeRepository;
-        import ru.arkaleks.salarygallery.repository.PaySlipRepository;
-
-        import java.io.IOException;
-        import java.util.ArrayList;
-        import java.util.Arrays;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Alex Arkashev (arkasandr@gmail.com)
@@ -27,7 +25,7 @@ package ru.arkaleks.salarygallery.controller.impl;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class AccountService {
+public class EditorService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -51,11 +49,6 @@ public class AccountService {
      * @return List<PaySlipDto>
      * @throws
      */
-//    public List<PaySlipDto> findAllEmployeePayslips() {
-//        String username = currentUserService.getCurrentEmployee().getUsername();
-//        return employeeMapper.mapToPaySlipDtoList(employeeRepository
-//                .findByUsername(username).get().getPaySlips());
-//    }
     public List<PaySlipDto> findAllEmployeePaySlips() {
         Employee employee = currentUserService.getLogInEmployee();
         return employeeMapper.mapToPaySlipDtoList(paySlipRepository.findBy(employee));
@@ -63,11 +56,11 @@ public class AccountService {
 
 
     /**
-     * Метод удаляет расчетный лист Payslip сотрудника Employee
+     * Метод удаляет расчетный лист Payslip
      *
      * @param
-     * @return List<PaySlipDto>
-     * @throws IOException
+     * @return
+     * @throws
      */
     public void deleteEmployeePaySlip(Integer paySlipId) {
         Employee employee = currentUserService.getLogInEmployee();
@@ -77,10 +70,14 @@ public class AccountService {
             paySlipsIdList.add(paySlip.getId());
         }
         if (paySlipsIdList.contains(paySlipId)) {
-            int pdfDocumentId = paySlipRepository.findById(paySlipId).get().getDocumentPdf().getId();
-            if (pdfDocumentId != 0) {
-                documentPdfRepository.deleteById(pdfDocumentId);
+            DocumentPdf doc = paySlipRepository.findById(paySlipId).get().getDocumentPdf();
+            if(doc != null) {
+                documentPdfRepository.deleteById(doc.getId());
             }
+//            int pdfDocumentId = paySlipRepository.findById(paySlipId).get().getDocumentPdf().getId();
+//            if (pdfDocumentId != 0) {
+//                documentPdfRepository.deleteById(pdfDocumentId);
+//            }
             paySlipRepository.deletePaySlipById(paySlipId);
         } else {
             throw new IllegalArgumentException("Расчетного листа с таким номером не существует!!");
@@ -88,12 +85,11 @@ public class AccountService {
     }
 
 
-
     /**
      * Метод добавляет новый расчетный лист PaySlip
      *
      * @param
-     * @return PaySlipDTO
+     * @return EmployeeDTO
      * @throws
      */
     public EmployeeDto addNewPaySlipToEmployee(PaySlip paySlip) {

@@ -6,8 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
 import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
-import ru.arkaleks.salarygallery.controller.impl.AccountService;
-import ru.arkaleks.salarygallery.model.Employee;
+import ru.arkaleks.salarygallery.controller.impl.EditorService;
 import ru.arkaleks.salarygallery.model.PaySlip;
 
 import java.util.List;
@@ -21,22 +20,22 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @Transactional
-public class AccountController {
+public class EditorController {
 
     @Autowired
-    private AccountService accountService;
+    private EditorService editorService;
 
     /**
      * Метод находит все расчетные листы Payslip сотрудника Employee
      *
      * @param
-     * @return PaySlipDto
+     * @return List<PaySlipDto>
      * @throws
      */
     @ResponseBody
-    @GetMapping("/account/payslip/all")
+    @GetMapping("/editor/payslip/all")
     List<PaySlipDto> findAllEmployeePayslips() {
-        return accountService.findAllEmployeePaySlips();
+        return editorService.findAllEmployeePaySlips();
     }
 
     /**
@@ -47,9 +46,9 @@ public class AccountController {
      * @throws
      */
     @ResponseBody
-    @DeleteMapping("/account/payslip/{paySlipId}/delete")
+    @DeleteMapping("/editor/payslip/{paySlipId}/delete")
     void deleteEmployeePayslip(@PathVariable int paySlipId) {
-        accountService.deleteEmployeePaySlip(paySlipId);
+        editorService.deleteEmployeePaySlip(paySlipId);
     }
 
 
@@ -57,13 +56,13 @@ public class AccountController {
      * Метод добавляет новый расчетный лист
      *
      * @param
-     * @return
+     * @return EmployeeDto
      * @throws
      */
     @ResponseBody
-    @PostMapping("/account/payslip/add")
+    @PostMapping("/editor/payslip/add")
     EmployeeDto addNewPaySlip(@RequestBody PaySlip paySlip) {
-        return accountService.addNewPaySlipToEmployee(paySlip);
+        return editorService.addNewPaySlipToEmployee(paySlip);
     }
 
 }

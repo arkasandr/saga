@@ -291,10 +291,6 @@ h3 {
     padding: 20px 20px 800px 0;
 }
 
-.account {
-    background: #669966;
-}
-
 .editor {
     background: #669966;
 }
@@ -389,4 +385,22 @@ h3 {
     border-radius: 5px;
     width: 190px;
     padding: 0 0 4px 5px;
+}
+
+
+.account {
+    background: #669966;
+}
+
+.account__chart {
+    font-size: 18px;
+    color: #fff;
+    background: #404251;
+    padding: 100px 0 20px 0;
+}
+
+.editor__chart__search {
+    font-size: 18px;
+    color: #fff;
+    padding-bottom: 50px;
 }

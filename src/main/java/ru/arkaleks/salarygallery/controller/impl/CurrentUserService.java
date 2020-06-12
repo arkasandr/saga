@@ -19,10 +19,10 @@ import ru.arkaleks.salarygallery.service.UserDetailsAdapter;
 public class CurrentUserService {
 
     /**
-     * Метод возвращает сотрудника Employee
+     * Метод возвращает сотрудника Employee  из текущего контекста
      *
      * @param
-     * @return EmployeeDTO
+     * @return UserDetailsAdapter
      * @throws
      */
     public UserDetailsAdapter getCurrentEmployee() {
@@ -31,6 +31,13 @@ public class CurrentUserService {
         return currentEmployee;
     }
 
+    /**
+     * Метод возвращает сотрудника Employee из текущего контекста
+     *
+     * @param
+     * @return Employee
+     * @throws
+     */
     public Employee getLogInEmployee() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsAdapter currentEmployee = (UserDetailsAdapter) auth.getPrincipal();
@@ -38,6 +45,13 @@ public class CurrentUserService {
     }
 
 
+    /**
+     * Метод устанавливает сотрудника Employee в текущий контекст
+     *
+     * @param
+     * @return Employee
+     * @throws
+     */
     public void setLogInEmployee(Employee employee) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsAdapter currentEmployee = (UserDetailsAdapter) auth.getPrincipal();

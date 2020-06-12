@@ -2,22 +2,16 @@ package ru.arkaleks.salarygallery.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
 import ru.arkaleks.salarygallery.controller.impl.ChartsService;
-import ru.arkaleks.salarygallery.controller.impl.CurrentUserService;
-import ru.arkaleks.salarygallery.controller.mapper.EmployeeMapper;
-import ru.arkaleks.salarygallery.model.Employee;
-import ru.arkaleks.salarygallery.model.PaySlip;
-import ru.arkaleks.salarygallery.repository.EmployeeRepository;
-import ru.arkaleks.salarygallery.repository.PaySlipRepository;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.List;
 
 
 /**
@@ -33,16 +27,9 @@ public class ChartsController {
     @Autowired
     ChartsService chartsService;
 
-    @Autowired
-    PaySlipRepository paySlipRepository;
-
-    @Autowired
-    CurrentUserService currentUserService;
-
-    private EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
 
     /**
-     * Метод находит все расчетные листы Payslip сотрудника Employee
+     * Метод строит график всех расчетных листов Payslip сотрудника Employee
      *
      * @param
      * @return List<PaySlipDto>
@@ -50,11 +37,11 @@ public class ChartsController {
      */
     @ResponseBody
     @GetMapping("/account/chart/all")
-    List<PaySlipDto> getChartForAllPaySlips() throws ParseException, IOException {
-        Employee employee = currentUserService.getLogInEmployee();
-        List<PaySlip> paySlips = paySlipRepository.findBy(employee);
-        chartsService.createChartAsPNGFile(paySlips);
-        return employeeMapper.mapToPaySlipDtoList(paySlips);
+    ResponseEntity<byte[]> getChartForAllPaySlips() throws IOException, ParseException {
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(chartsService.getAllPaySlipsChart());
     }
 
 }

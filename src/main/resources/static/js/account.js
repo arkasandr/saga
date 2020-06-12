@@ -17,10 +17,11 @@ jQuery(document).ready(function ($) {
         $.ajax({
             type: "GET",
             url: "/account/chart/all",
+            contentType: "blob",
             timeout: 100000,
             success: function (data) {
                 console.log("SUCCESS: ", data);
-        //        $("account__chart__display").html("<img src="C:/Projects/saga/src/main/resources/png/01.png""/>");
+                $("#account-chart-display").html('<img src="data:image/png;base64,' + data + '" />');
             },
             error: function (e) {
                 console.log("ERROR: ");

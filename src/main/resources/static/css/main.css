@@ -396,11 +396,16 @@ h3 {
     font-size: 18px;
     color: #fff;
     background: #404251;
-    padding: 100px 0 20px 0;
 }
 
-.editor__chart__search {
+.account__chart__search {
     font-size: 18px;
     color: #fff;
-    padding-bottom: 50px;
+    padding: 50px 0 20px 0;
+}
+
+.account__chart__display {
+    font-size: 18px;
+    color: #fff;
+    padding-bottom: 600px;
 }

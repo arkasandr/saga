@@ -8,8 +8,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -58,13 +58,12 @@ public class ChartsService {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         TimeSeries series = new TimeSeries("За весь период");
         for (PaySlip ps : paySlips) {
-            series.add(new Month(parseMonthToInt(ps.getMonth()), ps.getYear()), ps.getSalary() + ps.getAdvance());
+            series.add(new Month(parseMonthToInt(ps.getMonth()) + 1, ps.getYear()), ps.getSalary() + ps.getAdvance());
         }
         dataset.addSeries(series);
         return dataset;
 
     }
-
 
     /**
      * Метод преобразует месяц получения расчетного листа в целое число
@@ -76,7 +75,8 @@ public class ChartsService {
     private int parseMonthToInt(String str) throws ParseException {
         monthToMap();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH, parseMonth(str).getValue());
+        int newMonth = parseMonth(str).getValue() - 1;
+        calendar.set(Calendar.MONTH, newMonth);
         return calendar.get(Calendar.MONTH);
     }
 
@@ -101,12 +101,13 @@ public class ChartsService {
 
         XYPlot plot = chart.getXYPlot();
 
-        XYLineAndShapeRenderer render = new XYLineAndShapeRenderer();
-        render.setSeriesPaint(0, Color.RED);
-        render.setSeriesStroke(0, new BasicStroke(2.0f));
+        XYSplineRenderer spline = new XYSplineRenderer();
+        spline.setSeriesShapesVisible(0, false);
+        spline.setSeriesPaint(0, Color.BLUE);
+        spline.setSeriesStroke(0, new BasicStroke(2.0f));
+        plot.setRenderers(new XYItemRenderer[]{spline});
 
-        plot.setRenderer(render);
-        plot.setBackgroundPaint(Color.WHITE);
+        plot.setBackgroundPaint(Color.GRAY);
 
         plot.setRangeGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.BLACK);
@@ -129,6 +130,13 @@ public class ChartsService {
     }
 
 
+    /**
+     * Метод преобразует график из PNG файла в массив байт
+     *
+     * @param
+     * @return byte[]
+     * @throws IOException
+     */
     public byte[] writePNGFileToStream(JFreeChart chart) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ChartUtilities.writeChartAsPNG(bos, chart, 600, 400);
@@ -136,7 +144,13 @@ public class ChartsService {
 
     }
 
-
+    /**
+     * Метод создает график всех расчетных листов сотрудника
+     *
+     * @param
+     * @return byte[]
+     * @throws IOException
+     */
     public byte[] getAllPaySlipsChart() throws ParseException, IOException {
         Employee employee = currentUserService.getLogInEmployee();
         List<PaySlip> paySlips = paySlipRepository.findBy(employee);
@@ -145,6 +159,51 @@ public class ChartsService {
         byte[] bytes = Base64.encodeBase64(writePNGFileToStream(chart));
         return bytes;
     }
+
+    /**
+     * Метод создает график расчетных листов сотрудника за текущий год
+     *
+     * @param
+     * @return byte[]
+     * @throws IOException
+     */
+    public byte[] getRecentYearPaySlipsChart() throws ParseException, IOException {
+        Employee employee = currentUserService.getLogInEmployee();
+        List<PaySlip> paySlips = paySlipRepository.findBy(employee);
+        List<PaySlip> currentPaySlips = new ArrayList<>();
+        for (PaySlip ps : paySlips) {
+            if (ps.getYear() == Calendar.getInstance().get(Calendar.YEAR)) {
+                currentPaySlips.add(ps);
+            }
+        }
+        XYDataset dataset = createDataset(currentPaySlips);
+        JFreeChart chart = createChart(dataset);
+        byte[] bytes = Base64.encodeBase64(writePNGFileToStream(chart));
+        return bytes;
+    }
+
+    /**
+     * Метод создает график расчетных листов сотрудника за прошедший год
+     *
+     * @param
+     * @return byte[]
+     * @throws IOException
+     */
+    public byte[] getLastYearPaySlipsChart() throws ParseException, IOException {
+        Employee employee = currentUserService.getLogInEmployee();
+        List<PaySlip> paySlips = paySlipRepository.findBy(employee);
+        List<PaySlip> currentPaySlips = new ArrayList<>();
+        for (PaySlip ps : paySlips) {
+            if (ps.getYear() == Calendar.getInstance().get(Calendar.YEAR) - 1) {
+                currentPaySlips.add(ps);
+            }
+        }
+        XYDataset dataset = createDataset(currentPaySlips);
+        JFreeChart chart = createChart(dataset);
+        byte[] bytes = Base64.encodeBase64(writePNGFileToStream(chart));
+        return bytes;
+    }
+
 
     public void monthToMap() {
         this.months.put("январь", java.time.Month.JANUARY);

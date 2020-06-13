@@ -59,8 +59,17 @@
             <div class="col-md-8 offset-md-2">
                 <div class="account__chart__search">
                     <form class="form-horizontal" id="account-chart-all-search-form">
-                        <button id="getAllPayslipsChart" type="submit" class="btn btn-secondary btn-sm">Показать зарплатный график
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Показать график...
                         </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                            <button class="dropdown-item" id="getRecentYearPayslipsChart" type="button">за текущий год
+                            </button>
+                            <button class="dropdown-item" id="getLastYearPayslipsChart" type="button">за прошедший год
+                            </button>
+                            <button class="dropdown-item" id="getAllPayslipsChart" type="button">за все года</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -68,58 +77,11 @@
 
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="account__chart__display" id = "account-chart-display">
-                    <img src = "">
+                <div class="account__chart__display" id="account-chart-display">
+                    <img src="">
                 </div>
             </div>
         </div>
-
-        <!--<div class="row">-->
-            <!--<div class="col-md-10 offset-md-2">-->
-                <!--<div class="editor__payslip__add">-->
-                    <!--<form class="form-horizontal" id="editor-payslip-add-form">-->
-                        <!--<div class="editor__payslip__add__date">-->
-                            <!--<input type="text" placeholder="Введите год" class="editor__payslip__add__input__year"-->
-                                   <!--required-->
-                                   <!--id="editor-payslip-add-year">-->
-                            <!--<input type="text" placeholder="Введите месяц" class="editor__payslip__add__input__month"-->
-                                   <!--required-->
-                                   <!--id="editor-payslip-add-month">-->
-                        <!--</div>-->
-                        <!--<div class="editor__payslip__add__money">-->
-                            <!--<input type="text" placeholder="Введите аванс" class="editor__payslip__add__input__advance"-->
-                                   <!--required-->
-                                   <!--id="editor-payslip-add-advance">-->
-                            <!--<input type="text" placeholder="Введите зарплату"-->
-                                   <!--class="editor__payslip__add__input__salary" required-->
-                                   <!--id="editor-payslip-add-salary">-->
-                        <!--</div>-->
-                        <!--<button id="editor-payslip-add-btn" type="submit" class="btn btn-secondary btn-sm"> Добавить-->
-                            <!--расчетный лист-->
-                        <!--</button>-->
-                    <!--</form>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-
-        <!--<div class="row">-->
-            <!--<div class="col-md-10 offset-md-2">-->
-                <!--<div class="editor__payslip__delete">-->
-                    <!--<form class="form-horizontal" id="editor-payslip-delete-form">-->
-                        <!--<div class="editor__payslip__delete__input">-->
-                            <!--<input type="text" placeholder="Введите уникальный номер расчетного листа"-->
-                                   <!--class="editor__payslip__delete__input__id" required-->
-                                   <!--id="editor-payslip-delete-id">-->
-                        <!--</div>-->
-                        <!--<button id="editor-payslip-delete-btn" type="submit" class="btn btn-secondary btn-sm"> Удалить расчетный лист-->
-                        <!--</button>-->
-
-                    <!--</form>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
 
     </div>
 </section>
@@ -127,9 +89,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.js"
+        integrity="sha256-Bu2KGZCt5rR0kU0i5x8rQx5lUEWxa5aurmdDGPpM5kY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/javascript.util/0.12.12/javascript.util.min.js"
+        integrity="sha256-eiohPQlDytO6qQO+k+xX6LyVgfXcTzlPCy9t/VjceYo=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/account.js"></script>
 </body>
 </html>

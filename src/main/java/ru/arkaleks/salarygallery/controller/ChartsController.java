@@ -44,4 +44,36 @@ public class ChartsController {
                 .body(chartsService.getAllPaySlipsChart());
     }
 
+    /**
+     * Метод строит график расчетных листов Payslip сотрудника Employee за текущий год
+     *
+     * @param
+     * @return List<PaySlipDto>
+     * @throws
+     */
+    @ResponseBody
+    @GetMapping("/account/chart/recentyear")
+    ResponseEntity<byte[]> getRecentYearChartForPaySlips() throws IOException, ParseException {
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(chartsService.getRecentYearPaySlipsChart());
+    }
+
+    /**
+     * Метод строит график расчетных листов Payslip сотрудника Employee за прошедший год
+     *
+     * @param
+     * @return List<PaySlipDto>
+     * @throws
+     */
+    @ResponseBody
+    @GetMapping("/account/chart/lastyear")
+    ResponseEntity<byte[]> getLastYearChartForPaySlips() throws IOException, ParseException {
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(chartsService.getLastYearPaySlipsChart());
+    }
+
 }

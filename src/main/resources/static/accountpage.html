@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
 </head>
 <body>
 <header class="header">
@@ -56,10 +59,10 @@
 <section class="account__chart">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <div class="account__chart__search">
+            <div class="col-md-2 offset-md-1">
+                <div class="account__chart__search" id='account-chart-all-search'>
                     <form class="form-horizontal" id="account-chart-all-search-form">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu"
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Показать график...
                         </button>
@@ -73,15 +76,58 @@
                     </form>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <div class="account__chart__display" id="account-chart-display">
-                    <img src="">
+            <div class="col-md-6 d-flex justify-content-end">
+                <div class="account__chart__compare">
+                    <form class="form-horizontal" id="account-chart-compare-form">
+                        <button id="comparePayslips" type="submit" class="btn btn-secondary btn-sm">
+                            Сравнить графики за указанные годы
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-3 ml-auto">
+                <div class="account__chart__compare__years">
+                    <form class="form-horizontal" id="account-chart-compare-years-form">
+                        <div class="account__chart__compare__years__input">
+                            <input type="text" placeholder="первый год"
+                                   class="account__chart__compare__years__input__first"
+                                   required
+                                   id="account-chart-compare-years-first">
+                            <input type="text" placeholder="второй год"
+                                   class="account__chart__compare__years__input__second"
+                                   required
+                                   id="account-chart-compare-years-second">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="account__chart__timeline__display" id="payslipchart">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center">
+            <div class="account__chart__donut">
+                <form class="form-horizontal" id="account-chart-donut-form">
+                    <button id="account-chart-donut-button" type="submit" class="btn btn-secondary btn-sm">
+                        Загрузить последний расчетный лист
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="account__chart__donut__display" id="piechart"></div>
+            </div>
+        </div>
+
 
     </div>
 </section>
@@ -94,6 +140,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript.util/0.12.12/javascript.util.min.js"
         integrity="sha256-eiohPQlDytO6qQO+k+xX6LyVgfXcTzlPCy9t/VjceYo=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/account.js"></script>
+<script type="text/javascript" src="js/gchart.js"></script>
+
+
 </body>
 </html>
 

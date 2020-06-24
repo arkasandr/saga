@@ -1,24 +1,29 @@
 jQuery(document).ready(function ($) {
 
+    google.charts.load('current', {'packages': ['corechart'], 'language': 'ru'});
+    google.charts.setOnLoadCallback(function () {
+        searchLastEmployeePayslipAjax()
+    });
+
 
     $('#account-chart-donut-form').submit(function (event) {
         enableSearchAllPayslipsButton(false);
         event.preventDefault();
-        searchAllEmployeePayslipsAjax()
+        searchLastEmployeePayslipAjax()
     });
-
 
 
     function enableSearchAllPayslipsButton(flag) {
         $('#account-chart-donut-button').prop("disabled", flag);
     }
 
-    function searchAllEmployeePayslipsAjax() {
+    function searchLastEmployeePayslipAjax() {
         var options = {
-            // title: 'Здесь будет расчетный лист',
+            chartArea: {width: '85%', left: 20, height: '90%'},
             is3D: false,
             pieHole: 0.4,
-          //  backgroundColor: '#404251'
+            colors: ['blue', 'orange'],
+            title: 'Расчетный лист за последний месяц',
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -29,10 +34,10 @@ jQuery(document).ready(function ($) {
             timeout: 100000,
             success: function (data) {
                 var payslip = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Аванс',     data.advance],
-        ['Зарплата',      data.salary]
-    ]);
+                    ['Категория', 'Сумма'],
+                    ['Аванс', data.advance],
+                    ['Зарплата', data.salary]
+                ]);
                 console.log("SUCCESS: ", payslip);
                 chart.draw(payslip, options);
             },
@@ -45,7 +50,5 @@ jQuery(document).ready(function ($) {
             }
         });
     }
-
-    google.charts.load('current', {'packages':['corechart']});
 
 })

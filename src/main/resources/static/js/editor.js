@@ -114,7 +114,7 @@ jQuery(document).ready(function ($) {
                 console.log("SUCCESS: ", "ok222");
                 window.location = "http://localhost:9090/editor.html";
             },
-            error: function () {
+            error: function (e) {
                 $('#editor-payslip-add-btn').parent().append('<p>Расчетный лист за этот период уже существует!</p>');
                 console.log("ERROR: ");
                 event.preventDefault();

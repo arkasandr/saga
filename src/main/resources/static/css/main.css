@@ -401,7 +401,7 @@ h3 {
 .account__chart__search {
      font-size: 18px;
      color: #fff;
-     padding: 50px 0 20px 0;
+     padding: 50px 0 20px 10px;
  }
 
 .account__chart__compare {
@@ -453,7 +453,7 @@ h3 {
 .account__chart__timeline__display {
     font-size: 18px;
     color: #fff;
-    width: 800px;
+    width: 900px;
     height: 600px;
     padding-bottom: 50px;
 }
@@ -461,7 +461,7 @@ h3 {
 .account__chart__donut__display {
     font-size: 18px;
     color: #fff;
-    width: 800px;
+    width: 900px;
     height: 600px;
     padding-bottom: 200px;
 }

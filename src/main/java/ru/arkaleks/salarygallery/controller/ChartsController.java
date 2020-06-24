@@ -2,16 +2,11 @@ package ru.arkaleks.salarygallery.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
 import ru.arkaleks.salarygallery.controller.impl.ChartsService;
-import ru.arkaleks.salarygallery.model.PaySlip;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 
@@ -33,76 +28,52 @@ public class ChartsController {
      * Метод строит график всех расчетных листов Payslip сотрудника Employee
      *
      * @param
-     * @return byte[]
+     * @return List<PaySlipDto>
      * @throws
      */
     @ResponseBody
     @GetMapping("/account/chart/all")
-    ResponseEntity<byte[]> getChartForAllPaySlips() throws IOException, ParseException {
-        return ResponseEntity
-                .ok()
-                .contentType(MediaType.IMAGE_PNG)
-                .body(chartsService.getAllPaySlipsChart());
+    List<PaySlipDto> getChartForAllPaySlips() {
+        return chartsService.getAllPaySlipsChart();
     }
-
-//    /**
-//     * Метод строит график расчетных листов Payslip сотрудника Employee за текущий год
-//     *
-//     * @param
-//     * @return Lbyte[]
-//     * @throws
-//     */
-//    @ResponseBody
-//    @GetMapping("/account/chart/recentyear")
-//    ResponseEntity<byte[]> getRecentYearChartForPaySlips() throws IOException, ParseException {
-//        return ResponseEntity
-//                .ok()
-//                .contentType(MediaType.IMAGE_PNG)
-//                .body(chartsService.getRecentYearPaySlipsChart());
-//    }
 
     /**
      * Метод строит график расчетных листов Payslip сотрудника Employee за текущий год
      *
      * @param
-     * @return Lbyte[]
+     * @return List<PaySlipDto>
      * @throws
      */
     @ResponseBody
     @GetMapping("/account/chart/recentyear")
-    List<PaySlipDto> getRecentYearChartForPaySlips() throws IOException, ParseException {
+    List<PaySlipDto> getRecentYearChartForPaySlips() {
         return chartsService.getRecentYearPaySlipsChart();
     }
+
     /**
      * Метод строит график расчетных листов Payslip сотрудника Employee за прошедший год
      *
      * @param
-     * @return byte[]
+     * @return List<PaySlipDto>
      * @throws
      */
     @ResponseBody
     @GetMapping("/account/chart/lastyear")
-    ResponseEntity<byte[]> getLastYearChartForPaySlips() throws IOException, ParseException {
-        return ResponseEntity
-                .ok()
-                .contentType(MediaType.IMAGE_PNG)
-                .body(chartsService.getLastYearPaySlipsChart());
+    List<PaySlipDto> getLastYearChartForPaySlips() {
+        return chartsService.getLastYearPaySlipsChart();
     }
 
     /**
      * Метод строит график расчетных листов Payslip сотрудника Employee за сравниваемые годы
      *
      * @param
-     * @return byte[]
+     * @return List<PaySlipDto>
      * @throws
      */
     @ResponseBody
     @PostMapping("/account/chart/compare")
-    ResponseEntity<byte[]> getCompareYearsChartForPaySlips(@RequestBody int[] years) throws IOException, ParseException {
-        return ResponseEntity
-                .ok()
-                .contentType(MediaType.IMAGE_PNG)
-                .body(chartsService.getCompareYearsPaySlipsChart(years));
+    List<PaySlipDto> getCompareYearsChartForPaySlips(@RequestBody int[] years) {
+        return chartsService.getCompareYearsPaySlipsChart(years);
     }
 
 

@@ -31,6 +31,7 @@ public interface EmployeeMapper {
     EmployeeRoleDto mapToEmployeeRoleDto(EmployeeRole employeeRoleEntity);
 
     List<PaySlipDto> mapToPaySlipDtoList(List<PaySlip> paySlipList);
+    List<List<PaySlipDto>> mapToListPaySlipDtoList(List<List<PaySlip>> paySlipList);
 
     List<EmployeeRoleDto> mapToEmployeeRoleList(List<EmployeeRole> employeeRoleEntityList);
 

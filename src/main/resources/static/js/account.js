@@ -41,30 +41,43 @@ jQuery(document).ready(function ($) {
 
     function searchAllEmployeePayslipsAjax() {
         var options = {
-            chartArea: {width: '85%', right: 20, top: 20, height: '80%'},
+            chartArea: {width: '85%', right: 20, top: 20, height: '75%'},
             seriesType: 'bars',
             series: {2: {type: 'line'}},
             hAxis: {title: "Расчетные месяцы", titleTextStyle: {color: "#404251"}, format: 'MM, y'},
             vAxis: {title: "Доход, руб.", titleTextStyle: {color: "#404251"}, gridlines: {interval: 0.5}},
             isStacked: true,
             legend: {position: 'bottom', maxLines: 1,},
-            colors: ['blue', 'orange']
+            colors: ['blue', 'orange', 'red']
         };
         var chart = new google.visualization.ComboChart(document.getElementById('payslipchart'));
         var months = getRussianMonth();
-        var payslipsarray = [['Месяц', 'Зарплата', 'Аванс']];
 
         $.ajax({
             type: "GET",
             url: "/account/chart/all",
             timeout: 100000,
             success: function (data) {
-                console.log("SUCCESS: ", data);
+                var table = new google.visualization.DataTable();
+                table.addColumn({type:'date', role: 'domain'}, 'Месяц');
+                table.addColumn('number', 'Зарплата');
+                table.addColumn( 'number', 'Аванс');
+                table.addColumn( 'number', 'Средний доход');
+                table.addColumn({type: 'string', role: 'style'});
+                table.addColumn({type: 'string', role: 'tooltip'});
+                var sum = 0;
+                var count = 0;
                 $.each(data, function (i) {
-                    payslipsarray.push([new Date(data[i].year, months.get(data[i].month)), data[i].salary, data[i].advance]);
+                    var average = data[i].salary + data[i].advance;
+                    sum = sum + average;
+                    count = count + 1;
                 });
-                var payslips = google.visualization.arrayToDataTable(payslipsarray);
-                chart.draw(payslips, options);
+                $.each(data, function (i) {
+                    table.addRow([new Date(data[i].year, months.get(data[i].month)), data[i].salary, data[i].advance,
+                        sum/count, 'color: red', 'средний доход ' + (sum/count).toPrecision(7) + ' руб.']);
+                });
+                chart.draw(table, options);
+                console.log("SUCCESS: ", table);
             },
             error: function () {
                 console.log("ERROR: ");
@@ -79,29 +92,43 @@ jQuery(document).ready(function ($) {
 
     function searchRecentYearEmployeePayslipsAjax() {
         var options = {
-            chartArea: {width: '85%', right: 20, top: 20, height: '80%'},
+            chartArea: {width: '85%', right: 20, top: 20, height: '75%'},
             seriesType: 'bars',
             series: {2: {type: 'line'}},
             hAxis: {title: "Расчетные месяцы", titleTextStyle: {color: "#404251"}, format: 'MM, y'},
             vAxis: {title: "Доход, руб.", titleTextStyle: {color: "#404251"}, gridlines: {interval: 0.5}},
             isStacked: true,
             legend: {position: 'bottom', maxLines: 1,},
-            colors: ['blue', 'orange']
+            colors: ['blue', 'orange', 'red']
         };
         var chart = new google.visualization.ComboChart(document.getElementById('payslipchart'));
         var months = getRussianMonth();
-        var payslipsarray = [['Месяц', 'Зарплата', 'Аванс']];
 
         $.ajax({
             type: "GET",
             url: "/account/chart/recentyear",
             timeout: 100000,
             success: function (data) {
+                var table = new google.visualization.DataTable();
+                table.addColumn({type:'date', role: 'domain'}, 'Месяц');
+                table.addColumn('number', 'Зарплата');
+                table.addColumn( 'number', 'Аванс');
+                table.addColumn( 'number', 'Средний доход');
+                table.addColumn({type: 'string', role: 'style'});
+                table.addColumn({type: 'string', role: 'tooltip'});
+                var sum = 0;
+                var count = 0;
                 $.each(data, function (i) {
-                    payslipsarray.push([new Date(data[i].year, months.get(data[i].month)), data[i].salary, data[i].advance]);
+                    var average = data[i].salary + data[i].advance;
+                    sum = sum + average;
+                    count = count + 1;
                 });
-                var payslips = google.visualization.arrayToDataTable(payslipsarray);
-                chart.draw(payslips, options);
+                $.each(data, function (i) {
+                    table.addRow([new Date(data[i].year, months.get(data[i].month)), data[i].salary, data[i].advance,
+                        sum/count, 'color: red', 'средний доход ' + (sum/count).toPrecision(7) + ' руб.']);
+                });
+                chart.draw(table, options);
+                console.log("SUCCESS: ", table);
             },
             error: function () {
                 console.log("ERROR: ");
@@ -115,30 +142,43 @@ jQuery(document).ready(function ($) {
 
     function searchLastYearEmployeePayslipsAjax() {
         var options = {
-            chartArea: {width: '85%', right: 20, top: 20, height: '80%'},
+            chartArea: {width: '85%', right: 20, top: 20, height: '75%'},
             seriesType: 'bars',
             series: {2: {type: 'line'}},
             hAxis: {title: "Расчетные месяцы", titleTextStyle: {color: "#404251"}, format: 'MM, y'},
             vAxis: {title: "Доход, руб.", titleTextStyle: {color: "#404251"}, gridlines: {interval: 0.5}},
             isStacked: true,
             legend: {position: 'bottom', maxLines: 1,},
-            colors: ['blue', 'orange']
+            colors: ['blue', 'orange', 'red']
         };
         var chart = new google.visualization.ComboChart(document.getElementById('payslipchart'));
         var months = getRussianMonth();
-        var payslipsarray = [['Месяц', 'Зарплата', 'Аванс']];
 
         $.ajax({
             type: "GET",
             url: "/account/chart/lastyear",
             timeout: 100000,
             success: function (data) {
-                console.log("SUCCESS: ");
+                var table = new google.visualization.DataTable();
+                table.addColumn({type:'date', role: 'domain'}, 'Месяц');
+                table.addColumn('number', 'Зарплата');
+                table.addColumn( 'number', 'Аванс');
+                table.addColumn( 'number', 'Средний доход');
+                table.addColumn({type: 'string', role: 'style'});
+                table.addColumn({type: 'string', role: 'tooltip'});
+                var sum = 0;
+                var count = 0;
                 $.each(data, function (i) {
-                    payslipsarray.push([new Date(data[i].year, months.get(data[i].month)), data[i].salary, data[i].advance]);
+                    var average = data[i].salary + data[i].advance;
+                    sum = sum + average;
+                    count = count + 1;
                 });
-                var payslips = google.visualization.arrayToDataTable(payslipsarray);
-                chart.draw(payslips, options);
+                $.each(data, function (i) {
+                    table.addRow([new Date(data[i].year, months.get(data[i].month)), data[i].salary, data[i].advance,
+                        sum/count, 'color: red', 'средний доход ' + (sum/count).toPrecision(7) + ' руб.']);
+                });
+                chart.draw(table, options);
+                console.log("SUCCESS: ", table);
             },
             error: function () {
                 console.log("ERROR: ");
@@ -169,10 +209,10 @@ jQuery(document).ready(function ($) {
         var options = {
             chartArea: {width: '85%', right: 20, top: 20, height: '80%'},
             seriesType: 'bars',
-            series: {2: {type: 'line'}},
+            series: {2: {type: 'line'}, 3: {type: 'line'}},
             hAxis: {title: "Расчетные месяцы", titleTextStyle: {color: "#404251"}, format: 'MM'},
             vAxis: {title: "Доход, руб.", titleTextStyle: {color: "#404251"}, gridlines: {interval: 0.5}},
-            legend: {position: 'bottom', maxLines: 1,},
+            legend: {position: 'bottom', maxLines: 2,},
             colors: ['blue', 'orange'],
             bar: {groupWidth: "95%"}
         };
@@ -194,13 +234,35 @@ jQuery(document).ready(function ($) {
                 table.addColumn( 'number', 'Доход за ' + secondYear + ' год');
                 table.addColumn({type: 'string', role: 'tooltip'});
                 table.addColumn({type: 'string', role: 'style'});
+                table.addColumn( 'number', 'Средний доход за ' + firstYear + ' год');
+                table.addColumn({type: 'string', role: 'style'});
+                table.addColumn( 'number', 'Средний доход за ' + secondYear + ' год');
+                table.addColumn({type: 'string', role: 'style'});
+                var sumFirst = 0;
+                var countFirst = 0;
+                var sumSecond = 0;
+                var countSecond = 0;
+
+                $.each(data, function (i) {
+                    if (data[i].year === parseInt(firstYear, 10)) {
+                        var averageFirst = data[i].salary + data[i].advance;
+                        sumFirst = sumFirst + averageFirst;
+                        countFirst = countFirst + 1;
+                    } else {
+                        var averageSecond = data[i].salary + data[i].advance;
+                        sumSecond = sumSecond + averageSecond;
+                        countSecond = countSecond + 1;
+                    }
+                });
                 $.each(data, function (i) {
                     if (data[i].year === parseInt(firstYear, 10)) {
                         table.addRow([new Date(2020, months.get(data[i].month), 1), null, data[i].salary +
-                        data[i].advance, 'Доход за ' + data[i].year + ', ' + (data[i].salary + data[i].advance)  + ' руб.', 'color: blue']);
+                        data[i].advance, 'Доход за ' + data[i].year + ', ' + (data[i].salary + data[i].advance)  +
+                        ' руб.', 'color: blue', (sumFirst/countFirst), "color: blue", null, null]);
                     } else {
                         table.addRow([new Date(2020, months.get(data[i].month), 10), null, data[i].salary +
-                        data[i].advance, 'Доход за ' + data[i].year + ', ' + (data[i].salary + data[i].advance)  + ' руб.', 'color: orange']);
+                        data[i].advance, 'Доход за ' + data[i].year + ', ' + (data[i].salary + data[i].advance)  +
+                        ' руб.', 'color: orange', null, null, (sumSecond/countSecond), "color: orange"]);
                     }
                 });
                 chart.draw(table, options);

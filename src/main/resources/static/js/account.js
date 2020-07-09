@@ -2,6 +2,7 @@ jQuery(document).ready(function ($) {
 
     google.charts.load('current', {'packages': ['corechart'], 'language': 'ru'});
     google.charts.setOnLoadCallback(function () {
+        checkEmployeeData();
         searchRecentYearEmployeePayslipsAjax()
     });
 
@@ -20,6 +21,25 @@ jQuery(document).ready(function ($) {
         searchLastYearEmployeePayslipsAjax()
     });
 
+    function checkEmployeeData() {
+        $.ajax({
+            type: "GET",
+            url: "/editor/payslip/all",
+            timeout: 100000,
+            success: function (data) {
+                console.log("SUCCESS DATA: ", data);
+                    if (data.length === 0) {
+                        window.location = "http://localhost:9090/editor.html";
+                    }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            },
+            done: function () {
+                console.log("DONE");
+            }
+        });
+    }
 
     function enableSearchAllPayslipsButton(flag) {
         $('#getAllPayslipsChart').prop("disabled", flag);
@@ -77,6 +97,8 @@ jQuery(document).ready(function ($) {
                         sum/count, 'color: red', 'средний доход ' + (sum/count).toPrecision(7) + ' руб.']);
                 });
                 chart.draw(table, options);
+                searchMinEmployeePayslip(data);
+                searchMaxEmployeePayslip(data);
                 console.log("SUCCESS: ", table);
             },
             error: function () {
@@ -128,6 +150,8 @@ jQuery(document).ready(function ($) {
                         sum/count, 'color: red', 'средний доход ' + (sum/count).toPrecision(7) + ' руб.']);
                 });
                 chart.draw(table, options);
+                searchMinEmployeePayslip(data);
+                searchMaxEmployeePayslip(data);
                 console.log("SUCCESS: ", table);
             },
             error: function () {
@@ -178,6 +202,8 @@ jQuery(document).ready(function ($) {
                         sum/count, 'color: red', 'средний доход ' + (sum/count).toPrecision(7) + ' руб.']);
                 });
                 chart.draw(table, options);
+                searchMinEmployeePayslip(data);
+                searchMaxEmployeePayslip(data);
                 console.log("SUCCESS: ", table);
             },
             error: function () {
@@ -266,6 +292,8 @@ jQuery(document).ready(function ($) {
                     }
                 });
                 chart.draw(table, options);
+                searchMinEmployeePayslip(data);
+                searchMaxEmployeePayslip(data);
                     console.log("SUCCESS: ", table);
                     $('input[type="text"],#account-chart-compare-years-first').val('');
                     $('input[type="text"],#account-chart-compare-years-second').val('');
@@ -281,6 +309,66 @@ jQuery(document).ready(function ($) {
             }
         });
     }
+
+
+
+    function searchMinEmployeePayslip(data) {
+        var pieOptions = {
+            chartArea: {width: '85%', left: 20, height: '90%'},
+            is3D: false,
+            pieHole: 0.4,
+            colors: ['blue', 'orange'],
+            legend: {alignment: 'center', textStyle: {fontSize: 16}}
+        };
+        var pieChart = new google.visualization.PieChart(document.getElementById('pieChartMin'));
+        var lowestSal = Number.POSITIVE_INFINITY;
+        var lowestAdv = Number.POSITIVE_INFINITY;
+        var tmpSal;
+        var tmpAdv;
+        for (var i= data.length-1; i>=0; i--) {
+            tmpSal = data[i].salary;
+            tmpAdv = data[i].advance;
+            if (tmpAdv < lowestAdv) lowestAdv = tmpAdv;
+            if (tmpSal < lowestSal) lowestSal = tmpSal;
+        }
+        var payslip = google.visualization.arrayToDataTable([
+            ['Категория', 'Сумма'],
+            ['Зарплата', lowestSal],
+            ['Аванс', lowestAdv]
+
+        ]);
+                console.log("SUCCESS: ", pieChart);
+                pieChart.draw(payslip, pieOptions);
+    }
+
+    function searchMaxEmployeePayslip(data) {
+        var pieOptions = {
+            chartArea: {width: '85%', left: 20, height: '90%'},
+            is3D: false,
+            pieHole: 0.4,
+            colors: ['blue', 'orange'],
+            legend: {alignment: 'center', textStyle: {fontSize: 16}}
+        };
+        var pieChart = new google.visualization.PieChart(document.getElementById('pieChartMax'));
+        var highestSal = Number.NEGATIVE_INFINITY;
+        var highestAdv = Number.NEGATIVE_INFINITY;
+        var tmpSal;
+        var tmpAdv;
+        for (var i= data.length-1; i>=0; i--) {
+            tmpSal = data[i].salary;
+            tmpAdv = data[i].advance;
+            if (tmpAdv > highestAdv) highestAdv = tmpAdv;
+            if (tmpSal > highestSal) highestSal = tmpSal;
+        }
+        var payslip = google.visualization.arrayToDataTable([
+            ['Категория', 'Сумма'],
+            ['Зарплата', highestSal],
+            ['Аванс', highestAdv]
+        ]);
+        console.log("SUCCESS: ", pieChart);
+        pieChart.draw(payslip, pieOptions);
+    }
+
 
     function getRussianMonth() {
         var months = new Map();

@@ -59,7 +59,7 @@
 <section class="account__chart">
     <div class="container">
         <div class="row">
-            <div class="col-md-2 offset-md-1">
+            <div class="col-md-3">
                 <div class="account__chart__search" id='account-chart-all-search'>
                     <form class="form-horizontal" id="account-chart-all-search-form">
                         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu"
@@ -112,21 +112,59 @@
             </div>
         </div>
 
-        <div class="col-12 d-flex justify-content-center">
-            <div class="account__chart__donut">
-                <form class="form-horizontal" id="account-chart-donut-form">
-                    <button id="account-chart-donut-button" type="submit" class="btn btn-secondary btn-sm">
-                        Загрузить последний расчетный лист
-                    </button>
-                </form>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="account__chart__timeline__display__comments">
+                    <p>
+                        Доход за рассматриваемый период
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6 d-flex justify-content-center ">
+                <div class="account__chart__donut__display__min" id="pieChartMin"></div>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-center">
+                <div class="account__chart__donut__display__max" id="pieChartMax"></div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <div class="account__chart__donut__display" id="piechart"></div>
+            <div class="col-sm-6 text-center">
+                <div class="account__chart__donut__comments">
+                    <p>
+                        Минимальный доход
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 text-center">
+                <div class="account__chart__donut__comments">
+                    <p>
+                        Максимальный доход
+                    </p>
+                </div>
             </div>
         </div>
+
+
+        <!--<div class="col-12 d-flex justify-content-center">-->
+        <!--<div class="account__chart__donut">-->
+        <!--<form class="form-horizontal" id="account-chart-donut-form">-->
+        <!--<button id="account-chart-donut-button" type="submit" class="btn btn-secondary btn-sm">-->
+        <!--Загрузить последний расчетный лист-->
+        <!--</button>-->
+        <!--</form>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="row">-->
+        <!--<div class="col-12 d-flex justify-content-center">-->
+        <!--<div class="account__chart__donut__display" id="piechart"></div>-->
+        <!--</div>-->
+        <!--</div>-->
 
 
     </div>
@@ -140,7 +178,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript.util/0.12.12/javascript.util.min.js"
         integrity="sha256-eiohPQlDytO6qQO+k+xX6LyVgfXcTzlPCy9t/VjceYo=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/account.js"></script>
-<script type="text/javascript" src="js/gchart.js"></script>
 
 
 </body>

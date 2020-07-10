@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
+import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
+import ru.arkaleks.salarygallery.controller.impl.CurrentUserService;
 import ru.arkaleks.salarygallery.controller.impl.RegistrationService;
 import ru.arkaleks.salarygallery.model.Employee;
+
+import java.util.List;
 
 
 /**
@@ -21,6 +25,9 @@ public class RegistrationController {
 
     @Autowired
     private RegistrationService registrationService;
+
+    @Autowired
+    private CurrentUserService currentUserService;
 
 
     /**
@@ -51,4 +58,17 @@ public class RegistrationController {
         return registrationService.updateEmployeeByUsername(newEmployee);
     }
 
+
+    /**
+     * Метод вовращает имя зарегистрированного сотрудника Employee
+     *
+     * @param
+     * @return EmployeeDto
+     * @throws
+     */
+    @ResponseBody
+    @GetMapping("registrationstart/current")
+    String getCurrentEmployeeUsername() {
+        return currentUserService.getCurrentEmployeeUsername();
+    }
 }

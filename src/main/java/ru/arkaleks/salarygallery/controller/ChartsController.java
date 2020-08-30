@@ -31,7 +31,6 @@ public class ChartsController {
      * @return List<PaySlipDto>
      * @throws
      */
-    @ResponseBody
     @GetMapping("/account/chart/all")
     List<PaySlipDto> getChartForAllPaySlips() {
         return chartsService.getAllPaySlipsChart();
@@ -44,7 +43,6 @@ public class ChartsController {
      * @return List<PaySlipDto>
      * @throws
      */
-    @ResponseBody
     @GetMapping("/account/chart/recentyear")
     List<PaySlipDto> getRecentYearChartForPaySlips() {
         return chartsService.getRecentYearPaySlipsChart();
@@ -57,7 +55,6 @@ public class ChartsController {
      * @return List<PaySlipDto>
      * @throws
      */
-    @ResponseBody
     @GetMapping("/account/chart/lastyear")
     List<PaySlipDto> getLastYearChartForPaySlips() {
         return chartsService.getLastYearPaySlipsChart();
@@ -70,7 +67,6 @@ public class ChartsController {
      * @return List<PaySlipDto>
      * @throws
      */
-    @ResponseBody
     @PostMapping("/account/chart/compare")
     List<PaySlipDto> getCompareYearsChartForPaySlips(@RequestBody int[] years) {
         return chartsService.getCompareYearsPaySlipsChart(years);
@@ -84,7 +80,6 @@ public class ChartsController {
      * @return PaySlipDto
      * @throws
      */
-    @ResponseBody
     @GetMapping("/account/chart/lastpie")
     PaySlipDto findLastEmployeePayslip() {
         return chartsService.getLastPaySlipPieChart();

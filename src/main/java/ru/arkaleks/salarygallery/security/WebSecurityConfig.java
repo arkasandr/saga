@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html", "/login*", "/error.html",
                         "/registrationstart.html", "/registrationstart/**")
                 .permitAll()
-                .antMatchers("/registrationend.html","/account.html", "/editor.html")
+                .antMatchers("/registrationend.html", "/account.html", "/editor.html")
                 .hasRole("USER")
                 .antMatchers("/resources/**")
                 .permitAll()

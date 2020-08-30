@@ -33,7 +33,8 @@ public class RegistrationService {
     @Autowired
     private CurrentUserService currentUserService;
 
-    private EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
+    @Autowired
+    private EmployeeMapper employeeMapper;
 
     /**
      * Метод сохраняет нового сотрудника Employee без роли EmployeeRole

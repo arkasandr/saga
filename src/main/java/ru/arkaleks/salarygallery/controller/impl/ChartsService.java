@@ -2,8 +2,8 @@ package ru.arkaleks.salarygallery.controller.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RestController;
 import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
 import ru.arkaleks.salarygallery.controller.mapper.EmployeeMapper;
 import ru.arkaleks.salarygallery.model.Employee;
@@ -20,17 +20,12 @@ import java.util.List;
  * @since 0.1
  */
 @RequiredArgsConstructor
-@RestController
-@Transactional
+@Service
 public class ChartsService {
 
-    @Autowired
-    PaySlipRepository paySlipRepository;
-
-    @Autowired
-    CurrentUserService currentUserService;
-
-    private EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
+    private final PaySlipRepository paySlipRepository;
+    private final CurrentUserService currentUserService;
+    private final EmployeeMapper employeeMapper;
 
     /**
      * Метод возвращает все расчетные листы сотрудника
@@ -39,9 +34,10 @@ public class ChartsService {
      * @return List<PaySlipDto>
      * @throws
      */
+    @Transactional
     public List<PaySlipDto> getAllPaySlipsChart() {
         Employee employee = currentUserService.getLogInEmployee();
-        List<PaySlip> paySlips = paySlipRepository.findBy(employee);
+        List<PaySlip> paySlips = paySlipRepository.findByEmployee(employee);
         return employeeMapper.mapToPaySlipDtoList(paySlips);
     }
 
@@ -52,10 +48,11 @@ public class ChartsService {
      * @return PaySlip
      * @throws
      */
+    @Transactional
     public PaySlipDto getLastPaySlipPieChart() {
         PaySlip result = new PaySlip();
         Employee employee = currentUserService.getLogInEmployee();
-        List<PaySlip> paySlips = paySlipRepository.findBy(employee);
+        List<PaySlip> paySlips = paySlipRepository.findByEmployee(employee);
         if (paySlips != null && !paySlips.isEmpty()) {
             result = paySlips.get(paySlips.size() - 1);
         }
@@ -69,9 +66,10 @@ public class ChartsService {
      * @return List<PaySlipDto>
      * @throws
      */
+    @Transactional
     public List<PaySlipDto> getRecentYearPaySlipsChart() {
         Employee employee = currentUserService.getLogInEmployee();
-        List<PaySlip> paySlips = paySlipRepository.findBy(employee);
+        List<PaySlip> paySlips = paySlipRepository.findByEmployee(employee);
         List<PaySlip> currentPaySlips = new ArrayList<>();
         for (PaySlip ps : paySlips) {
             if (ps.getYear() == Calendar.getInstance().get(Calendar.YEAR)) {
@@ -88,9 +86,10 @@ public class ChartsService {
      * @return List<PaySlipDto>
      * @throws
      */
+    @Transactional
     public List<PaySlipDto> getLastYearPaySlipsChart() {
         Employee employee = currentUserService.getLogInEmployee();
-        List<PaySlip> paySlips = paySlipRepository.findBy(employee);
+        List<PaySlip> paySlips = paySlipRepository.findByEmployee(employee);
         List<PaySlip> currentPaySlips = new ArrayList<>();
         for (PaySlip ps : paySlips) {
             if (ps.getYear() == Calendar.getInstance().get(Calendar.YEAR) - 1) {
@@ -107,9 +106,10 @@ public class ChartsService {
      * @return List<PaySlipDto>
      * @throws
      */
+    @Transactional
     public List<PaySlipDto> getCompareYearsPaySlipsChart(int[] years) {
         Employee employee = currentUserService.getLogInEmployee();
-        List<PaySlip> paySlips = paySlipRepository.findBy(employee);
+        List<PaySlip> paySlips = paySlipRepository.findByEmployee(employee);
         List<PaySlip> comparePaySlips = new ArrayList<>();
         List<PaySlip> firstYearPaySlips = new ArrayList<>();
         List<PaySlip> secondYearPaySlips = new ArrayList<>();

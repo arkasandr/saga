@@ -2,9 +2,12 @@ package ru.arkaleks.salarygallery.controller.impl;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,14 +32,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 @Service
+@Slf4j
 public class PaySlipService {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    private EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
+    private final CurrentUserService currentUserService;
+    private final EmployeeRepository employeeRepository;
 
     @Autowired
-    private CurrentUserService currentUserService;
+    private EmployeeMapper employeeMapper;
 
 
     /**
@@ -97,15 +100,15 @@ public class PaySlipService {
                 List<PaySlip> paySlips = new ArrayList<>();
                 int year = Integer.parseInt(StringUtils.substringAfterLast(lines.get(1).trim(), " "));
                 String month = StringUtils.substringBetween(lines.get(1).trim(), "начисления ", " " + year);
-                Double advance = (DecimalFormat.getNumberInstance().parse(StringUtils.substringBetween
-                        (StringUtils.substringAfter(lines.get(7).trim(), "банк) "), " ", " "))
-                        .doubleValue()) * 1000 +
-                        DecimalFormat.getNumberInstance().parse(StringUtils.substringAfterLast
-                                (lines.get(7).trim(), " ")).doubleValue();
-                Double salary = (DecimalFormat.getNumberInstance().parse(StringUtils.substringAfter
-                        (lines.get(5).trim(), "выплате: ")).doubleValue()) * 1000 +
-                        DecimalFormat.getNumberInstance().parse(StringUtils.substringAfterLast
-                                (lines.get(5).trim(), " ")).doubleValue();
+                Double advance = (DecimalFormat.getNumberInstance().parse(StringUtils.substringBetween(
+                        StringUtils.substringAfter(lines.get(7).trim(), "банк) "), " ", " "))
+                        .doubleValue()) * 1000
+                        + DecimalFormat.getNumberInstance().parse(StringUtils.substringAfterLast(
+                                lines.get(7).trim(), " ")).doubleValue();
+                Double salary = (DecimalFormat.getNumberInstance().parse(StringUtils.substringAfter(
+                        lines.get(5).trim(), "выплате: ")).doubleValue()) * 1000
+                        + DecimalFormat.getNumberInstance().parse(StringUtils.substringAfterLast(
+                                lines.get(5).trim(), " ")).doubleValue();
 
                 PaySlip paySlip = new PaySlip(year, month, advance, salary, doc);
                 doc.setPaySlip(paySlip);
@@ -130,14 +133,12 @@ public class PaySlipService {
                         .orElseGet(() -> {
                             throw new IllegalArgumentException("Извините, имя пользователя уже существует!");
                         }));
-
                 document.close();
             } else {
-                System.out.println("Расчетный лист пустой!");
+                log.warn("Расчетный лист пустой!");
             }
         } catch (IOException ioex) {
-            ioex.printStackTrace();
-            System.out.println("Расчетный лист не найден!");
+            log.warn("Расчетный лист не найден!", ioex);
         }
     }
 

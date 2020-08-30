@@ -37,7 +37,6 @@ public class RegistrationController {
      * @return EmployeeDto
      * @throws
      */
-    @ResponseBody
     @PostMapping("/registrationstart/continue")
     EmployeeDto registerNewEmployee(@RequestBody Employee newEmployee) {
         registrationService.saveEmployeeWithoutEmployeeRole(newEmployee);
@@ -52,7 +51,6 @@ public class RegistrationController {
      * @return EmployeeDto
      * @throws
      */
-    @ResponseBody
     @PostMapping("/registrationend/adddata")
     EmployeeDto addNewEmployeeData(@RequestBody Employee newEmployee) {
         return registrationService.updateEmployeeByUsername(newEmployee);
@@ -66,7 +64,6 @@ public class RegistrationController {
      * @return EmployeeDto
      * @throws
      */
-    @ResponseBody
     @GetMapping("registrationstart/current")
     String getCurrentEmployeeUsername() {
         return currentUserService.getCurrentEmployeeUsername();

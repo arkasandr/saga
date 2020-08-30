@@ -22,17 +22,14 @@ import java.util.List;
 @Transactional
 public class EditorController {
 
-    @Autowired
-    private EditorService editorService;
+
+    private final EditorService editorService;
 
     /**
      * Метод находит все расчетные листы Payslip сотрудника Employee
      *
-     * @param
      * @return List<PaySlipDto>
-     * @throws
      */
-    @ResponseBody
     @GetMapping("/editor/payslip/all")
     List<PaySlipDto> findAllEmployeePayslips() {
         return editorService.findAllEmployeePaySlips();
@@ -45,7 +42,6 @@ public class EditorController {
      * @return
      * @throws
      */
-    @ResponseBody
     @DeleteMapping("/editor/payslip/{paySlipId}/delete")
     void deleteEmployeePayslip(@PathVariable int paySlipId) {
         editorService.deleteEmployeePaySlip(paySlipId);
@@ -59,7 +55,6 @@ public class EditorController {
      * @return EmployeeDto
      * @throws
      */
-    @ResponseBody
     @PostMapping("/editor/payslip/add")
     EmployeeDto addNewPaySlip(@RequestBody PaySlip paySlip) {
         return editorService.addNewPaySlipToEmployee(paySlip);

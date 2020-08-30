@@ -24,19 +24,11 @@ import java.util.List;
 @Transactional
 public class PaySlipController {
 
-    @Autowired
     private final PaySlipService paySlipService;
 
     @ResponseStatus(value = HttpStatus.OK)
     @PostMapping("/registrationend/uploadfile")
-    void uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
+    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException, ParseException {
             paySlipService.uploadFile(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
-
 }

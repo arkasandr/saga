@@ -1,6 +1,7 @@
 package ru.arkaleks.salarygallery.controller.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,6 @@ import ru.arkaleks.salarygallery.service.UserDetailsAdapter;
 @Transactional
 public class CurrentUserService {
 
-    private EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
     /**
      * Метод возвращает сотрудника Employee  из текущего контекста
      *

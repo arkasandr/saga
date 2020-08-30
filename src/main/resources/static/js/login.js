@@ -1,3 +1,24 @@
+$(window).on('load', function () {
+    $.ajax({
+        type: "GET",
+        url: "/registrationstart/current",
+        timeout: 100000,
+        success: function (data) {
+            console.log("SUCCESS DATA: ", data);
+            if (data !== "anonymousUser") {
+                window.location = "http://localhost:9090/editor.html";
+            }
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        },
+        done: function () {
+            console.log("DONE");
+        }
+    });
+
+});
+
 $(document).ready(function () {
     $("#login-username-form").submit(function (event) {
         var username = $("#username").val();
@@ -35,4 +56,5 @@ $(document).ready(function () {
 
         });
     }
+
 });

@@ -81,7 +81,7 @@ function addEmployeeDataAjax(json) {
             event.preventDefault();
 
         },
-        done: function (e) {
+        done: function () {
             console.log("DONE");
             enableAddNewUserButton(true);
         }

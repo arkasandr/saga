@@ -1,11 +1,12 @@
 package ru.arkaleks.salarygallery.security;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.RememberMeAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,7 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.rememberme.*;
-import ru.arkaleks.salarygallery.controller.impl.PaySlipService;
 import ru.arkaleks.salarygallery.service.UserService;
 
 import javax.sql.DataSource;
@@ -32,28 +32,26 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public static final String KEY = "saga";
+    private static final String KEY = "saga";
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private SagaAuthenticationProvider sagaProvider;
+    private final SagaAuthenticationProvider sagaProvider;
 
-    @Autowired
-    DataSource dataSource;
+    private final DataSource dataSource;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth
                 .authenticationProvider(sagaProvider)
                 .authenticationProvider(new RememberMeAuthenticationProvider(KEY));
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers("/**/*.css")
                 .antMatchers("/**/*.js")
@@ -70,9 +68,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(customLoginFilter(), RememberMeAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/index.html", "/login*", "/error.html",
-                        "/registrationstart.html", "/registrationstart/continue")
+                        "/registrationstart.html", "/registrationstart/**")
                 .permitAll()
-                .antMatchers("/registrationend.html", "/editor.html")
+                .antMatchers("/registrationend.html", "/account.html", "/editor.html")
                 .hasRole("USER")
                 .antMatchers("/resources/**")
                 .permitAll()

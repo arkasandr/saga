@@ -236,10 +236,10 @@ h3 {
 }
 
 .registrationstart__add__login {
-     font-size: 14px;
-     color: #000;
-     padding: 10px 0 10px 0;
- }
+    font-size: 14px;
+    color: #000;
+    padding: 10px 0 10px 0;
+}
 
 .registrationstart__add__password {
     font-size: 14px;
@@ -289,10 +289,6 @@ h3 {
     color: #FFFFFF;
     text-align: center;
     padding: 20px 20px 800px 0;
-}
-
-.account {
-    background: #669966;
 }
 
 .editor {
@@ -390,3 +386,113 @@ h3 {
     width: 190px;
     padding: 0 0 4px 5px;
 }
+
+
+.account {
+    background: #669966;
+}
+
+.account__chart {
+    font-size: 18px;
+    color: #fff;
+    background: #404251;
+}
+
+.account__chart__search {
+     font-size: 18px;
+     color: #fff;
+     padding: 50px 0 0 70px;
+ }
+
+.account__chart__compare {
+    font-size: 18px;
+    color: #fff;
+    padding: 50px 0 20px 0;
+}
+
+.account__chart__display__timeline {
+    font-size: 18px;
+    color: #fff;
+    padding-bottom: 40px;
+}
+
+.account__chart__compare__years {
+    font-size: 14px;
+    color: #000;
+}
+
+.account__chart__compare__years__input {
+    font-size: 14px;
+    color: #000;
+    padding: 50px 0 0 0;
+
+}
+
+.account__chart__compare__years__input__first {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 90px;
+    padding: 0 0 4px 5px;
+}
+
+.account__chart__compare__years__input__second {
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 90px;
+    padding: 0 0 4px 5px;
+}
+
+.account__chart__donut {
+    font-size: 18px;
+    color: #fff;
+    padding: 50px 0 20px 0;
+}
+
+.account__chart__timeline__display {
+    font-size: 18px;
+    color: #fff;
+    width: 970px;
+    height: 600px;
+    padding-bottom: 20px;
+}
+
+.account__chart__donut__display__min {
+    font-size: 18px;
+    color: #fff;
+    width: 400px;
+    height: 300px;
+    padding: 40px 0 20px 0;
+}
+
+.account__chart__donut__display__max {
+    font-size: 18px;
+    color: #fff;
+    width: 400px;
+    height: 300px;
+    padding: 40px 0 20px 0;
+}
+
+
+.blog {
+    background: #404251;
+}
+
+.blog__main {
+    background: #404251;
+    font-size: 24px;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 200px;
+}
+
+.blog__text {
+    background: #404251;
+    font-size: 18px;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px 20px 800px 0;
+}
+

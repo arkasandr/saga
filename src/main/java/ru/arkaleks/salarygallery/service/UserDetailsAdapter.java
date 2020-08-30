@@ -19,7 +19,7 @@ public class UserDetailsAdapter implements UserDetails {
 
     private Employee employee;
 
-    public UserDetailsAdapter(Employee employee) {
+    UserDetailsAdapter(Employee employee) {
         this.employee = employee;
     }
 

@@ -1,7 +1,6 @@
 package ru.arkaleks.salarygallery.controller.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
@@ -16,6 +15,7 @@ import ru.arkaleks.salarygallery.repository.PaySlipRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Alex Arkashev (arkasandr@gmail.com)
@@ -23,55 +23,45 @@ import java.util.List;
  * @since 0.1
  */
 @RequiredArgsConstructor
-@Transactional
 @Service
 public class EditorService {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
-    @Autowired
-    private PaySlipRepository paySlipRepository;
+    private final PaySlipRepository paySlipRepository;
 
-    @Autowired
-    private DocumentPdfRepository documentPdfRepository;
+    private final DocumentPdfRepository documentPdfRepository;
 
-    private EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
+    private final EmployeeMapper employeeMapper;
 
-    @Autowired
-    private CurrentUserService currentUserService;
+    private final CurrentUserService currentUserService;
 
 
     /**
      * Метод находит все расчетные листы Payslips сотрудника Employee
-     *
-     * @param
-     * @return List<PaySlipDto>
-     * @throws
      */
+    @Transactional(readOnly = true)
     public List<PaySlipDto> findAllEmployeePaySlips() {
         Employee employee = currentUserService.getLogInEmployee();
-        return employeeMapper.mapToPaySlipDtoList(paySlipRepository.findBy(employee));
+        return employeeMapper.mapToPaySlipDtoList(paySlipRepository.findByEmployee(employee));
     }
 
 
     /**
      * Метод удаляет расчетный лист Payslip
-     *
-     * @param
-     * @return
-     * @throws
      */
+    @Transactional
     public void deleteEmployeePaySlip(Integer paySlipId) {
         Employee employee = currentUserService.getLogInEmployee();
-        List<PaySlip> paySlipList = paySlipRepository.findBy(employee);
+        List<PaySlip> paySlipList = paySlipRepository.findByEmployee(employee);
         List<Integer> paySlipsIdList = new ArrayList<>();
         for (PaySlip paySlip : paySlipList) {
             paySlipsIdList.add(paySlip.getId());
         }
         if (paySlipsIdList.contains(paySlipId)) {
-            DocumentPdf doc = paySlipRepository.findById(paySlipId).get().getDocumentPdf();
-            if(doc != null) {
+            Optional<PaySlip> optionalPaySlip = paySlipRepository.findById(paySlipId);
+            DocumentPdf doc = optionalPaySlip.isPresent() ? optionalPaySlip.get().getDocumentPdf() : new DocumentPdf();
+            if (doc != null) {
                 documentPdfRepository.deleteById(doc.getId());
             }
 //            int pdfDocumentId = paySlipRepository.findById(paySlipId).get().getDocumentPdf().getId();
@@ -87,17 +77,15 @@ public class EditorService {
 
     /**
      * Метод добавляет новый расчетный лист PaySlip
-     *
-     * @param
-     * @return EmployeeDTO
-     * @throws
      */
+    @Transactional
     public EmployeeDto addNewPaySlipToEmployee(PaySlip paySlip) {
         String emplName = currentUserService.getCurrentEmployee().getUsername();
-        Employee employee = employeeRepository.findByUsername(emplName).get();
+        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(emplName);
+        Employee employee = optionalEmployee.orElseGet(Employee::new);
         List<PaySlip> paySlips = employee.getPaySlips();
         for (PaySlip ps : paySlips) {
-            if (ps.getYear() == paySlip.getYear() && ps.getMonth() == paySlip.getMonth()) {
+            if (ps.getYear() == paySlip.getYear() && ps.getMonth().equals(paySlip.getMonth())) {
                 throw new IllegalArgumentException("Извините, расчетный лист уже существует!");
             }
         }

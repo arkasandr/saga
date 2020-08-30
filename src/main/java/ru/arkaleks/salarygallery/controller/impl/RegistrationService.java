@@ -1,7 +1,6 @@
 package ru.arkaleks.salarygallery.controller.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +10,9 @@ import ru.arkaleks.salarygallery.model.Employee;
 import ru.arkaleks.salarygallery.model.EmployeeRole;
 import ru.arkaleks.salarygallery.repository.EmployeeRepository;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Alex Arkashev (arkasandr@gmail.com)
@@ -24,23 +24,16 @@ import java.util.List;
 @Service
 public class RegistrationService {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private CurrentUserService currentUserService;
+    private final CurrentUserService currentUserService;
 
-    private EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
+    private final EmployeeMapper employeeMapper;
 
     /**
      * Метод сохраняет нового сотрудника Employee без роли EmployeeRole
-     *
-     * @param
-     * @return
-     * @throws
      */
     public void saveEmployeeWithoutEmployeeRole(Employee newEmployee) {
         List<Employee> employees = employeeRepository.findAll();
@@ -60,49 +53,27 @@ public class RegistrationService {
 
 
     /**
-     * Метод устанавливает роль EmployeeRole для добавляемого сотрудника Employee
-     *
-     * @param
-     * @return
-     * @throws
-     */
-    public void setEmployeeRoleToEmployee(Employee newEmployee) {
-        List<EmployeeRole> roles = newEmployee.getEmployeeRole();
-        roles.get(0).setEmployee(employeeRepository.findByUsername(newEmployee.getUsername()).get());
-        employeeRepository.findByUsername(newEmployee.getUsername()).get().setEmployeeRole(roles);
-    }
-
-    /**
      * Метод устанавливает роль USER для добавляемого сотрудника Employee
-     *
-     * @param
-     * @return
-     * @throws
      */
     public void setUserRoleToEmployee(Employee newEmployee) {
-        List<EmployeeRole> roles = Arrays.asList(new EmployeeRole("ROLE_USER"));
-        roles.get(0).setEmployee(employeeRepository.findByUsername(newEmployee.getUsername()).get());
-        employeeRepository.findByUsername(newEmployee.getUsername()).get().setEmployeeRole(roles);
+        List<EmployeeRole> roles = Collections.singletonList(new EmployeeRole("ROLE_USER"));
+        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(newEmployee.getUsername());
+        Employee employee = optionalEmployee.orElseGet(Employee::new);
+        roles.get(0).setEmployee(employee);
     }
 
     /**
      * Метод добавляет нового пользователя сотрудника Employee в приложение
-     *
-     * @param
-     * @return EmployeeDTO
-     * @throws
      */
     public EmployeeDto addNewEmployee(Employee newEmployee) {
-        return employeeMapper.mapToEmployeeDto(employeeRepository.findByUsername(newEmployee.getUsername()).get());
+        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(newEmployee.getUsername());
+        Employee employee = optionalEmployee.orElseGet(Employee::new);
+        return employeeMapper.mapToEmployeeDto(employee);
     }
 
 
     /**
      * Метод обновляет данные сотрудника Employee
-     *
-     * @param
-     * @return EmployeeDTO
-     * @throws
      */
     public EmployeeDto updateEmployeeByUsername(Employee employee) {
         String username = currentUserService.getCurrentEmployee().getUsername();

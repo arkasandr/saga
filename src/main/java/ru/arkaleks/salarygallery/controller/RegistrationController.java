@@ -1,16 +1,12 @@
 package ru.arkaleks.salarygallery.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
-import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
 import ru.arkaleks.salarygallery.controller.impl.CurrentUserService;
 import ru.arkaleks.salarygallery.controller.impl.RegistrationService;
 import ru.arkaleks.salarygallery.model.Employee;
-
-import java.util.List;
 
 
 /**
@@ -23,19 +19,12 @@ import java.util.List;
 @Transactional
 public class RegistrationController {
 
-    @Autowired
-    private RegistrationService registrationService;
+    private final RegistrationService registrationService;
 
-    @Autowired
-    private CurrentUserService currentUserService;
-
+    private final CurrentUserService currentUserService;
 
     /**
      * Метод регистрирует нового сотрудника Employee
-     *
-     * @param
-     * @return EmployeeDto
-     * @throws
      */
     @PostMapping("/registrationstart/continue")
     EmployeeDto registerNewEmployee(@RequestBody Employee newEmployee) {
@@ -46,23 +35,14 @@ public class RegistrationController {
 
     /**
      * Метод обновляет информацию о зарегестрированном сотруднике Employee
-     *
-     * @param
-     * @return EmployeeDto
-     * @throws
      */
     @PostMapping("/registrationend/adddata")
     EmployeeDto addNewEmployeeData(@RequestBody Employee newEmployee) {
         return registrationService.updateEmployeeByUsername(newEmployee);
     }
 
-
     /**
      * Метод вовращает имя зарегистрированного сотрудника Employee
-     *
-     * @param
-     * @return EmployeeDto
-     * @throws
      */
     @GetMapping("registrationstart/current")
     String getCurrentEmployeeUsername() {

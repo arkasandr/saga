@@ -48,30 +48,21 @@ public class Employee {
     @Column(name = "EMPLOYEE_ID")
     private int id;
 
-
     private int employeeNumber;
-
 
     private String surname;
 
-
     private String firstName;
-
 
     private String middleName;
 
-
     private String company;
-
 
     private String department;
 
-
     private String position;
 
-
     private String username;
-
 
     private String password;
 

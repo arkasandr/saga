@@ -3,10 +3,8 @@ package ru.arkaleks.salarygallery.controller.mapper;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Service;
 import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
-import ru.arkaleks.salarygallery.controller.dto.EmployeeRoleDto;
 import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
 import ru.arkaleks.salarygallery.model.Employee;
-import ru.arkaleks.salarygallery.model.EmployeeRole;
 import ru.arkaleks.salarygallery.model.PaySlip;
 
 import java.util.List;
@@ -21,8 +19,6 @@ import java.util.List;
 public interface EmployeeMapper {
 
     EmployeeDto mapToEmployeeDto(Employee employeeEntity);
-
-    EmployeeRoleDto mapToEmployeeRoleDto(EmployeeRole employeeRoleEntity);
 
     List<PaySlipDto> mapToPaySlipDtoList(List<PaySlip> paySlipList);
 

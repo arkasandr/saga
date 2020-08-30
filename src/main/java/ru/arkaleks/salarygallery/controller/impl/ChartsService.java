@@ -1,7 +1,6 @@
 package ru.arkaleks.salarygallery.controller.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
@@ -29,10 +28,6 @@ public class ChartsService {
 
     /**
      * Метод возвращает все расчетные листы сотрудника
-     *
-     * @param
-     * @return List<PaySlipDto>
-     * @throws
      */
     @Transactional
     public List<PaySlipDto> getAllPaySlipsChart() {
@@ -43,10 +38,6 @@ public class ChartsService {
 
     /**
      * Метод возвращает данные последнего расчетного листа сотрудника
-     *
-     * @param
-     * @return PaySlip
-     * @throws
      */
     @Transactional
     public PaySlipDto getLastPaySlipPieChart() {
@@ -61,10 +52,6 @@ public class ChartsService {
 
     /**
      * Метод возвращает расчетные листы сотрудника за текущий год
-     *
-     * @param
-     * @return List<PaySlipDto>
-     * @throws
      */
     @Transactional
     public List<PaySlipDto> getRecentYearPaySlipsChart() {
@@ -81,10 +68,6 @@ public class ChartsService {
 
     /**
      * Метод возвращает расчетные листы сотрудника за прошедший год
-     *
-     * @param
-     * @return List<PaySlipDto>
-     * @throws
      */
     @Transactional
     public List<PaySlipDto> getLastYearPaySlipsChart() {
@@ -101,10 +84,6 @@ public class ChartsService {
 
     /**
      * Метод возвращает данные для сравнения расчетных листов сотрудника за указанные годы
-     *
-     * @param
-     * @return List<PaySlipDto>
-     * @throws
      */
     @Transactional
     public List<PaySlipDto> getCompareYearsPaySlipsChart(int[] years) {

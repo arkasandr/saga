@@ -1,14 +1,10 @@
 package ru.arkaleks.salarygallery.controller.impl;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,21 +32,18 @@ import java.util.List;
 public class PaySlipService {
 
     private final CurrentUserService currentUserService;
+
     private final EmployeeRepository employeeRepository;
 
-    @Autowired
-    private EmployeeMapper employeeMapper;
+    private final EmployeeMapper employeeMapper;
 
 
     /**
      * Метод преобразует MultipartFile в File
-     *
-     * @param
-     * @return File
-     * @throws IOException
      */
     public static File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
-        File convFile = new File("C:/Projects/saga/src/main/resources/pdf" + "/" + multipart.getOriginalFilename());
+        File convFile = new File("C:/Projects/saga/src/main/resources/pdf" + "/"
+                + multipart.getOriginalFilename());
         multipart.transferTo(convFile);
         return convFile;
     }
@@ -58,13 +51,9 @@ public class PaySlipService {
 
     /**
      * Метод сохраняет PDF файл и добавляет днные из него к зарегистрированному сотруднику
-     *
-     * @param
-     * @return
-     * @throws IOException, ParseException
      */
     public void uploadFile(MultipartFile multiFile) throws IOException, ParseException {
-        String uploadDir = "C:/Projects/saga/src/main/resources/pdf";
+ //       String uploadDir = "C:/Projects/saga/src/main/resources/pdf";
         File file = multipartToFile(multiFile);
         getDataFromPDF(file);
     }
@@ -72,13 +61,8 @@ public class PaySlipService {
 
     /**
      * Метод получает данные из файла pdf
-     *
-     * @param
-     * @return Employee
-     * @throws IOException, ParseException
      */
-    public void getDataFromPDF(File file) throws IOException, ParseException {
-        int id = currentUserService.getCurrentEmployee().getId();
+    public void getDataFromPDF(File file) throws ParseException {
         String username = currentUserService.getCurrentEmployee().getUsername();
         String password = currentUserService.getCurrentEmployee().getPassword();
         String email = currentUserService.getCurrentEmployee().getEmail();
@@ -90,7 +74,8 @@ public class PaySlipService {
                 List<String> lines = getLinesFromText(text);
                 int employeeNumber = Integer.parseInt(lines.get(6).trim());
                 long millis = System.currentTimeMillis();
-                DocumentPdf doc = new DocumentPdf(employeeNumber, file.getName(), getByteArrayFromFile(file), new java.sql.Date(millis));
+                DocumentPdf doc = new DocumentPdf(employeeNumber, file.getName(), getByteArrayFromFile(file),
+                        new java.sql.Date(millis));
                 String surname = StringUtils.substringBefore(lines.get(3), " ").trim();
                 String firstName = StringUtils.substringBetween(lines.get(3), " ", " ").trim();
                 String middleName = StringUtils.substringAfterLast(lines.get(3), firstName + " ").trim();
@@ -145,10 +130,6 @@ public class PaySlipService {
 
     /**
      * Метод находит строки в тексте по номеру
-     *
-     * @param
-     * @return List<String>
-     * @throws IOException
      */
     public List<String> getLinesFromText(String text) {
         List<String> result = new ArrayList<>();
@@ -187,7 +168,7 @@ public class PaySlipService {
 
             for (String str : result) {
                 if (str == null) {
-                    throw new NullPointerException("Строка" + str + "имеет нулевой аргумент!");
+                    throw new NullPointerException("Строка имеет нулевой аргумент!");
                 }
             }
         } catch (IOException ioex) {
@@ -199,16 +180,12 @@ public class PaySlipService {
 
     /**
      * Метод преобразует файл в массив байт
-     *
-     * @param
-     * @return byte[]
-     * @throws IOException
      */
     private byte[] getByteArrayFromFile(File file) throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final InputStream in = new FileInputStream(file);
         final byte[] buffer = new byte[500];
-        int read = -1;
+        int read;
         while ((read = in.read(buffer)) > 0) {
             baos.write(buffer, 0, read);
         }

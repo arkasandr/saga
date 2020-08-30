@@ -1,7 +1,6 @@
 package ru.arkaleks.salarygallery.controller.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.arkaleks.salarygallery.controller.dto.EmployeeDto;
@@ -16,6 +15,7 @@ import ru.arkaleks.salarygallery.repository.PaySlipRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Alex Arkashev (arkasandr@gmail.com)
@@ -59,7 +59,8 @@ public class EditorService {
             paySlipsIdList.add(paySlip.getId());
         }
         if (paySlipsIdList.contains(paySlipId)) {
-            DocumentPdf doc = paySlipRepository.findById(paySlipId).get().getDocumentPdf();
+            Optional<PaySlip> optionalPaySlip = paySlipRepository.findById(paySlipId);
+            DocumentPdf doc = optionalPaySlip.isPresent() ? optionalPaySlip.get().getDocumentPdf() : new DocumentPdf();
             if (doc != null) {
                 documentPdfRepository.deleteById(doc.getId());
             }
@@ -80,7 +81,8 @@ public class EditorService {
     @Transactional
     public EmployeeDto addNewPaySlipToEmployee(PaySlip paySlip) {
         String emplName = currentUserService.getCurrentEmployee().getUsername();
-        Employee employee = employeeRepository.findByUsername(emplName).get();
+        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(emplName);
+        Employee employee = optionalEmployee.orElseGet(Employee::new);
         List<PaySlip> paySlips = employee.getPaySlips();
         for (PaySlip ps : paySlips) {
             if (ps.getYear() == paySlip.getYear() && ps.getMonth().equals(paySlip.getMonth())) {

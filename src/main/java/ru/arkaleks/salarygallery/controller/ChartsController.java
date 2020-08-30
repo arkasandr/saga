@@ -1,7 +1,6 @@
 package ru.arkaleks.salarygallery.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.arkaleks.salarygallery.controller.dto.PaySlipDto;
@@ -17,20 +16,15 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @RestController
-@Transactional
 public class ChartsController {
 
-    @Autowired
-    ChartsService chartsService;
+    private final ChartsService chartsService;
 
 
     /**
      * Метод строит график всех расчетных листов Payslip сотрудника Employee
-     *
-     * @param
-     * @return List<PaySlipDto>
-     * @throws
      */
+    @Transactional(readOnly = true)
     @GetMapping("/account/chart/all")
     List<PaySlipDto> getChartForAllPaySlips() {
         return chartsService.getAllPaySlipsChart();
@@ -38,11 +32,8 @@ public class ChartsController {
 
     /**
      * Метод строит график расчетных листов Payslip сотрудника Employee за текущий год
-     *
-     * @param
-     * @return List<PaySlipDto>
-     * @throws
      */
+    @Transactional(readOnly = true)
     @GetMapping("/account/chart/recentyear")
     List<PaySlipDto> getRecentYearChartForPaySlips() {
         return chartsService.getRecentYearPaySlipsChart();
@@ -50,11 +41,8 @@ public class ChartsController {
 
     /**
      * Метод строит график расчетных листов Payslip сотрудника Employee за прошедший год
-     *
-     * @param
-     * @return List<PaySlipDto>
-     * @throws
      */
+    @Transactional(readOnly = true)
     @GetMapping("/account/chart/lastyear")
     List<PaySlipDto> getLastYearChartForPaySlips() {
         return chartsService.getLastYearPaySlipsChart();
@@ -62,24 +50,17 @@ public class ChartsController {
 
     /**
      * Метод строит график расчетных листов Payslip сотрудника Employee за сравниваемые годы
-     *
-     * @param
-     * @return List<PaySlipDto>
-     * @throws
      */
+    @Transactional
     @PostMapping("/account/chart/compare")
     List<PaySlipDto> getCompareYearsChartForPaySlips(@RequestBody int[] years) {
         return chartsService.getCompareYearsPaySlipsChart(years);
     }
 
-
     /**
      * Метод находит все расчетные листы Payslip сотрудника Employee
-     *
-     * @param
-     * @return PaySlipDto
-     * @throws
      */
+    @Transactional(readOnly = true)
     @GetMapping("/account/chart/lastpie")
     PaySlipDto findLastEmployeePayslip() {
         return chartsService.getLastPaySlipPieChart();

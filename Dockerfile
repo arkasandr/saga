@@ -11,6 +11,6 @@ FROM openjdk:8-jre-alpine
 
 WORKDIR /app
 
-COPY --from=MAVEN_BUILD /build/target/saga-0.1.0.jar /app/
+COPY --from=MAVEN_BUILD /build/target/salarygallery-1.0-SNAPSHOT.jar /app/
 
-ENTRYPOINT ["java", "-jar", "saga-0.1.0.jar"]
+ENTRYPOINT ["java", "-jar", "salarygallery-1.0-SNAPSHOT.jar"]

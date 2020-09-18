@@ -13,4 +13,6 @@ WORKDIR /app
 
 COPY --from=MAVEN_BUILD /build/target/salarygallery-1.0-SNAPSHOT.jar /app/
 
+EXPOSE 3000
+
 ENTRYPOINT ["java", "-jar", "salarygallery-1.0-SNAPSHOT.jar"]

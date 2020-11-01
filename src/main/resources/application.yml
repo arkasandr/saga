@@ -23,5 +23,5 @@ spring:
     password: ${DB_PASSWORD:gardavan091}
     driver-class-name: org.postgresql.Driver
 server:
-  port: 9090
+  port: 9080
 

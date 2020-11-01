@@ -46,7 +46,7 @@ jQuery(document).ready(function ($) {
                     console.log("SUCCESS: ", "ok222");
                     $("#button2").prop("disabled", false);
                     e.preventDefault();
-                    window.location = "http://localhost:9090/accountpage.html";
+                    window.location = "/accountpage.html";
                 },
                 error: function () {
                     alert("Не удалось загрузить файл!");
@@ -68,12 +68,12 @@ function addEmployeeDataAjax(json) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         type: "POST",
-        url: "http://localhost:9090/registrationend/adddata",
+        url: "/registrationend/adddata",
         data: json,
         timeout: 100000,
         success: function () {
             console.log("SUCCESS: ", "ok222");
-            window.location = "http://localhost:9090/accountpage.html";
+            window.location = "/accountpage.html";
         },
         error: function () {
             $('#registrationend-card-add-btn').parent().append('<p>Сотрудник с такими данными уже существует!</p>');

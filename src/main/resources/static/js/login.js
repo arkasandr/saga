@@ -6,7 +6,7 @@ $(window).on('load', function () {
         success: function (data) {
             console.log("SUCCESS DATA: ", data);
             if (data !== "anonymousUser") {
-                window.location = "http://localhost:9090/editor.html";
+                window.location = "/editor.html";
             }
         },
         error: function (e) {
@@ -42,12 +42,12 @@ $(document).ready(function () {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
-            url: "http://localhost:9090/login",
+            url: "/login",
             data: json,
             timeout: 100000,
 
             success: function () {
-                window.location = "http://localhost:9090/editor.html";
+                window.location = "/editor.html";
                 console.log("SUCCESS: ", "ok222");
             },
             error: function () {

@@ -29,7 +29,7 @@ jQuery(document).ready(function ($) {
             success: function (data) {
                 console.log("SUCCESS DATA: ", data);
                     if (data.length === 0) {
-                        window.location = "http://localhost:9090/editor.html";
+                        window.location = "/editor.html";
                     }
             },
             error: function (e) {

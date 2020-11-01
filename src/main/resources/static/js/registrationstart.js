@@ -24,7 +24,7 @@ $(document).ready(function () {
             dataType : "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
-            url: "http://localhost:9090/registrationstart/continue",
+            url: "/registrationstart/continue",
             data: json,
             timeout: 100000,
 
@@ -44,13 +44,13 @@ $(document).ready(function () {
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     type: "POST",
-                    url: "http://localhost:9090/login",
+                    url: "/login",
                     data: json,
                     timeout: 100000,
 
                     success: function () {
                         console.log("SUCCESS: ", "ok222");
-                        window.location = "http://localhost:9090/registrationend.html";
+                        window.location = "/registrationend.html";
                     },
                     error: function () {
                         alert("Авторизация не выполнена!");

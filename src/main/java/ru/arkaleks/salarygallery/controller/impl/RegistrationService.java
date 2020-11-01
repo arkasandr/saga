@@ -10,6 +10,7 @@ import ru.arkaleks.salarygallery.model.Employee;
 import ru.arkaleks.salarygallery.model.EmployeeRole;
 import ru.arkaleks.salarygallery.repository.EmployeeRepository;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -52,24 +53,24 @@ public class RegistrationService {
     }
 
 
-    /**
-     * Метод устанавливает роль USER для добавляемого сотрудника Employee
-     */
-    public void setUserRoleToEmployee(Employee newEmployee) {
-        List<EmployeeRole> roles = Collections.singletonList(new EmployeeRole("ROLE_USER"));
-        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(newEmployee.getUsername());
-        Employee employee = optionalEmployee.orElseGet(Employee::new);
-        roles.get(0).setEmployee(employee);
-    }
-
-    /**
-     * Метод добавляет нового пользователя сотрудника Employee в приложение
-     */
-    public EmployeeDto addNewEmployee(Employee newEmployee) {
-        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(newEmployee.getUsername());
-        Employee employee = optionalEmployee.orElseGet(Employee::new);
-        return employeeMapper.mapToEmployeeDto(employee);
-    }
+//    /**
+//     * Метод устанавливает роль USER для добавляемого сотрудника Employee
+//     */
+//    public void setUserRoleToEmployee(Employee newEmployee) {
+//        List<EmployeeRole> roles = Collections.singletonList(new EmployeeRole("ROLE_USER"));
+//        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(newEmployee.getUsername());
+//        Employee employee = optionalEmployee.orElseGet(Employee::new);
+//        roles.get(0).setEmployee(employee);
+//    }
+//
+//    /**
+//     * Метод добавляет нового пользователя сотрудника Employee в приложение
+//     */
+//    public EmployeeDto addNewEmployee(Employee newEmployee) {
+//        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(newEmployee.getUsername());
+//        Employee employee = optionalEmployee.orElseGet(Employee::new);
+//        return employeeMapper.mapToEmployeeDto(employee);
+//    }
 
 
     /**
@@ -93,5 +94,44 @@ public class RegistrationService {
                     throw new IllegalArgumentException("Извините, имя пользователя \" " + employee.getUsername() + " \" не существует!");
                 }));
     }
+
+
+    /**
+     * Метод устанавливает роль EmployeeRole для добавляемого сотрудника Employee
+     *
+     * @param
+     * @return
+     * @throws
+     */
+    public void setEmployeeRoleToEmployee(Employee newEmployee) {
+        List<EmployeeRole> roles = newEmployee.getEmployeeRole();
+        roles.get(0).setEmployee(employeeRepository.findByUsername(newEmployee.getUsername()).get());
+        employeeRepository.findByUsername(newEmployee.getUsername()).get().setEmployeeRole(roles);
+    }
+
+    /**
+     * Метод устанавливает роль USER для добавляемого сотрудника Employee
+     *
+     * @param
+     * @return
+     * @throws
+     */
+    public void setUserRoleToEmployee(Employee newEmployee) {
+        List<EmployeeRole> roles = Arrays.asList(new EmployeeRole("ROLE_USER"));
+        roles.get(0).setEmployee(employeeRepository.findByUsername(newEmployee.getUsername()).get());
+        employeeRepository.findByUsername(newEmployee.getUsername()).get().setEmployeeRole(roles);
+    }
+
+    /**
+     * Метод добавляет нового пользователя сотрудника Employee в приложение
+     *
+     * @param
+     * @return EmployeeDTO
+     * @throws
+     */
+    public EmployeeDto addNewEmployee(Employee newEmployee) {
+        return employeeMapper.mapToEmployeeDto(employeeRepository.findByUsername(newEmployee.getUsername()).get());
+    }
+
 
 }

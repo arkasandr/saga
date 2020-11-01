@@ -41,9 +41,8 @@ public class PaySlipService {
     /**
      * Метод преобразует MultipartFile в File
      */
-    public static File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
-        File convFile = new File("C:/Projects/saga/src/main/resources/pdf" + "/"
-                + multipart.getOriginalFilename());
+    public File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
+        File convFile = new File("C:/projects/salarygallery/src/main/resources/pdf/", multipart.getOriginalFilename());
         multipart.transferTo(convFile);
         return convFile;
     }

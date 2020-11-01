@@ -35,14 +35,14 @@ public class CurrentUserService {
         return currentEmployee.getEmployee();
     }
 
-//    /**
-//     * Метод устанавливает сотрудника Employee в текущий контекст
-//     */
-//    public void setLogInEmployee(Employee employee) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        UserDetailsAdapter currentEmployee = (UserDetailsAdapter) auth.getPrincipal();
-//        currentEmployee.setEmployee(employee);
-//    }
+    /**
+     * Метод устанавливает сотрудника Employee в текущий контекст
+     */
+    public void setLogInEmployee(Employee employee) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsAdapter currentEmployee = (UserDetailsAdapter) auth.getPrincipal();
+        currentEmployee.setEmployee(employee);
+    }
 
     /**
      * Метод возвращает EmployeeDto из текущего контекста
